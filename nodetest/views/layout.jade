@@ -4,40 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(type='text/javascript', src='/socket.io/socket.io.js')
-    script(type='text/javascript').
-        var socket = io();
-        socket.on('connect', function () {
-            console.log('i am connected wohoo')
-                socket.on('welcome', function (data) {
-                    console.log(data.msg)
-                    console.log(data.msges)
-                    if(data.msges) {
-                        for (var i = 0; i < data.msges.length; i++) {
-                            var p = document.createElement('p')
-                            var msgContent = document.createTextNode('received ' + data.msges[i])
-                            p.appendChild(msgContent)
-                            var div = document.getElementById('testdiv')
-                            div.appendChild(p)
-                        }
-                    }
-                })
-
-                socket.on('new_msg', function (data) {
-                    console.log('received ' + data.text)
-                    if(data.id !== socket.id) {
-                        var p = document.createElement('p')
-                        var msgContent = document.createTextNode(data.id + ': ' + data.text)
-                        p.appendChild(msgContent)
-                        var div = document.getElementById('testdiv')
-                        div.appendChild(p)
-                    }
-                })
-
-            socket.on('time', function (data) {
-                console.log(data.time)
-            })
-        })
-
+    script(type='text/javascript' src='/javascripts/client_handlers/onConnect.js')
   body
     block content
     script(type='text/javascript', src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.4/fabric.min.js")
