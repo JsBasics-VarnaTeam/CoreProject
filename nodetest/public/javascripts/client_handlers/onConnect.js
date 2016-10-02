@@ -1,40 +1,44 @@
 /**
  * Created by Krasimir on 10/2/2016.
  */
-var socket = io();
+var client = io();
 
 // Handshake request between server and client
-socket.on('connect', function () {
+client.on('connect', function () {
     // Callback on successful connection
-    // client = socket on the server
+    let accepted = false;
 
-    console.log('i am connected wohoo')
-    socket.on('welcome', function (data) {
-        console.log(data.msg)
-        console.log(data.msges)
-        if(data.msges) {
-            for (var i = 0; i < data.msges.length; i++) {
-                var p = document.createElement('p')
-                var msgContent = document.createTextNode('received ' + data.msges[i])
-                p.appendChild(msgContent)
-                var div = document.getElementById('testdiv')
-                div.appendChild(p)
-            }
-        }
+    console.log(username)
+    // send the server username for """"authentication"""" testing
+    client.emit('username', {username: username})
+
+    // if username was accepted fire callback
+    client.on('accepted', function (data) {
+        accepted = true;
+        console.log(data)
+        console.log('i am connected wohoo')
     })
 
-    socket.on('new_msg', function (data) {
-        console.log('received ' + data.text)
-        if(data.id !== socket.id) {
-            var p = document.createElement('p')
-            var msgContent = document.createTextNode(data.id + ': ' + data.text)
-            p.appendChild(msgContent)
-            var div = document.getElementById('testdiv')
-            div.appendChild(p)
+    // client side disconnect after 5 sec
+    // if client is not accepted
+    setTimeout(
+        () => {
+        if(!accepted) {
+            client.disconnect()
         }
-    })
+        }, 5000)
 
-    socket.on('time', function (data) {
+    // action events here
+
+
+    // receive time from server for teting purposes
+    client.on('time', function (data) {
         console.log(data.time)
+    })
+
+    // client will be kicked by server after 6 sec
+    // if he does not have username
+    client.on('kick', function (data) {
+        console.log(data)
     })
 })

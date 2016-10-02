@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div zdr bepce (#{username})
+
+    // make username accessible for onConnect.js (stupid jade)
+    script(type='text/javascript').
+        var username = !{JSON.stringify(username)}
+        console.log(username)
+
+    // load fabricjs
+    script(type='text/javascript', src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.4/fabric.min.js")
+    // draw canvas
+
+    // load the client handler needed to establish connection
+    script(type='text/javascript' src='/javascripts/client_handlers/onConnect.js')
+    // play game ez

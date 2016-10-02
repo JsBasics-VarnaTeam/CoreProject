@@ -1,21 +1,10 @@
 extends layout
 
 block content
-    input(id='text')
-    input(type='button' id='send', onclick='addToList(document.getElementById("text").value)', value='Write Message')
-    div(id='testdiv')
-
-    script(type = 'text/javascript').
-        function addToList(text) {
-            console.log(text)
-            var p = document.createElement('p')
-            var msgContent = document.createTextNode(text)
-            p.appendChild(msgContent)
-            var div = document.getElementById('testdiv')
-            div.appendChild(p)
-            socket.emit('msg', {text: text})
-        }
-
-
-
+    h1 Hello
+    h3 Choose your username
+    form(action="http://localhost:3000/connect" method="GET")
+        input(type='Text', id='username' name="username")
+        br
+        input(type='submit', id='submit', value='Connect')
 
