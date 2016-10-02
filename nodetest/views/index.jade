@@ -1,9 +1,20 @@
 extends layout
 
 block content
-    script(type='text/javascript').
-        var messages = [];
-        input(id='text')
+    input(id='text')
+    input(type='button' id='send', onclick='addToList(document.getElementById("text").value)', value='Write Message')
+    div(id='testdiv')
+    script(type = 'text/javascript').
+        function addToList(text) {
+            console.log(text)
+            var p = document.createElement('p')
+            var msgContent = document.createTextNode(text)
+            p.appendChild(msgContent)
+            var div = document.getElementById('testdiv')
+            div.appendChild(p)
+            socket.emit('msg', {text: text})
+        }
+
 
 
 
