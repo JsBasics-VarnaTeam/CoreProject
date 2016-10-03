@@ -26,7 +26,6 @@ module.exports = (io) => {
             io.to(client.id).emit('accepted', 'welcome')
             accepted = true;
             console.log('client with id ' + client.id + ' and username ' + data.username + ' connected');
-
         });
 
 
