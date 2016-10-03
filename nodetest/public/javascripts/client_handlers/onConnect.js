@@ -3,6 +3,8 @@
  */
 var client = io();
 
+
+
 // Handshake request between server and client
 client.on('connect', function () {
     // Callback on successful connection

@@ -7,13 +7,15 @@ block content
     script(type='text/javascript').
         var username = !{JSON.stringify(username)}
         console.log(username)
-
+        //load jquery
+    script(src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous")
     // load fabricjs
     script(type='text/javascript', src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.4/fabric.min.js")
     // draw canvas
     canvas(id='canvas', width, height)
     // load the client handler needed to establish connection
     script(type='text/javascript' src='/javascripts/client_handlers/onConnect.js')
-    // play game ez
-
+    //load canvas
     script(type='text/javascript' src='/javascripts/client_handlers/canvas.js')
+    // load key listener
+    script(type='text/javascript' src='/javascripts/client_handlers/onKeydown.js')

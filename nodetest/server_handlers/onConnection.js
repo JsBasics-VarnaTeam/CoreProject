@@ -11,15 +11,10 @@ module.exports = (io) => {
         let accepted = false;
         clientCount++
         client.on('username', (data) => {
-            console.log('<debug>');
-            console.log(usernamesToIds);
             if(typeof(usernamesToIds[data.username]) != 'undefined'){
-                console.log('tuk sme')
                 io.to(client.id).emit('rejected','Username already in use!')
                 return
             }
-            console.log('</debug>');
-            console.log('');
             usernamesToIds[data.username] = client.id
             clients[client.id] = data.username
             console.log(client.id + ' ' + data.username)
