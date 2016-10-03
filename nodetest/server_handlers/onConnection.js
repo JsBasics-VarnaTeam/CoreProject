@@ -1,17 +1,30 @@
 module.exports = (io) => {
     var clientCount = 0;
     // var messages = [];
+
+
     var clients = [];
+    var usernamesToIds = [];
 
     // for each client there will be separate keep alive connection
     io.on('connection', function (client) {
         let accepted = false;
+        clientCount++
         client.on('username', (data) => {
+            console.log('<debug>');
+            console.log(usernamesToIds);
+            if(typeof(usernamesToIds[data.username]) != 'undefined'){
+                console.log('tuk sme')
+                io.to(client.id).emit('rejected','Username already in use!')
+                return
+            }
+            console.log('</debug>');
+            console.log('');
+            usernamesToIds[data.username] = client.id
             clients[client.id] = data.username
-
+            console.log(client.id + ' ' + data.username)
             io.to(client.id).emit('accepted', 'welcome')
             accepted = true;
-            clientCount++
             console.log('client with id ' + client.id + ' and username ' + data.username + ' connected');
 
         });
@@ -40,8 +53,16 @@ module.exports = (io) => {
 
 
         client.on('disconnect', function() {
-            console.log('client with id ' + client.id + ' disconnected')
+            //remove from clients list
+            let username = clients[client.id]
+            delete clients[client.id];
+            delete usernamesToIds[username];
+
+
+            console.log('clients : '+ clients + ' ' + clients.length)
+            console.log('usernamesToIds : '+ usernamesToIds + ' ' + usernamesToIds.length)
             clientCount--
+            console.log('client with id ' + client.id + ' disconnected')
         })
     });
 

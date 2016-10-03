@@ -18,6 +18,13 @@ client.on('connect', function () {
         console.log(data)
         console.log('i am connected wohoo')
     })
+    client.on('rejected', function (data) {
+        accepted = false;
+        console.log(data)
+        let paragraph = document.createElement('p')
+        paragraph.appendChild(document.createTextNode(data))
+        document.body.appendChild(paragraph)
+    })
 
     // client side disconnect after 5 sec
     // if client is not accepted
