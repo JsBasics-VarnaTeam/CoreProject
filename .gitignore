@@ -84,3 +84,4 @@ fabric.properties
 #Webstorm workspace
 .idea/workspace.xml
 **/.idea/workspace.xml
+**/.idea/vcs.xml
