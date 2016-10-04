@@ -1,6 +1,5 @@
-let canvasPropertyObject = require('./gameHandler').canvasPropertyObject;
-let rectPropertyObject = require('./gameHandler').rectPropertyObject;
-
+let gameHandler = require('./gameHandler')
+let canvasData =
 module.exports = (io) => {
     var clientCount = 0;
     // var messages = [];
@@ -21,7 +20,10 @@ module.exports = (io) => {
             usernamesToIds[data.username] = client.id
             clients[client.id] = data.username
             console.log(client.id + ' ' + data.username)
-            io.to(client.id).emit('accepted', {'canvasData': canvasPropertyObject, 'rectData' : rectPropertyObject})
+
+            gameHandler.addPossitionPropertiesToRect(gameHandler.rectPropertyObject);
+            console.log(gameHandler.rectPropertyObject);
+            io.to(client.id).emit('accepted', {'canvasData': gameHandler.canvasPropertyObject, 'rectData' : gameHandler.rectPropertyObject})
             accepted = true;
             console.log('client with id ' + client.id + ' and username ' + data.username + ' connected');
         });

@@ -4,6 +4,7 @@ fabric.Object.prototype.getAngleInRadians = function() {
 };
 let canvas = null;
 let rect = null;
+
 function initialRender(canvasData, rectData) {
     console.log(canvasData);
     console.log(rectData);
