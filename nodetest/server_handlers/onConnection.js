@@ -1,3 +1,6 @@
+let canvasPropertyObject = require('./gameHandler').canvasPropertyObject;
+let rectPropertyObject = require('./gameHandler').rectPropertyObject;
+
 module.exports = (io) => {
     var clientCount = 0;
     // var messages = [];
@@ -18,7 +21,7 @@ module.exports = (io) => {
             usernamesToIds[data.username] = client.id
             clients[client.id] = data.username
             console.log(client.id + ' ' + data.username)
-            io.to(client.id).emit('accepted', 'welcome')
+            io.to(client.id).emit('accepted', {'canvasData': canvasPropertyObject, 'rectData' : rectPropertyObject})
             accepted = true;
             console.log('client with id ' + client.id + ' and username ' + data.username + ' connected');
         });

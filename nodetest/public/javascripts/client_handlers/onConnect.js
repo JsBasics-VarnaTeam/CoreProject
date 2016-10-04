@@ -2,7 +2,8 @@
  * Created by Krasimir on 10/2/2016.
  */
 var client = io();
-
+let canvasData = null;
+let rectData = null;
 
 
 // Handshake request between server and client
@@ -17,8 +18,15 @@ client.on('connect', function () {
     // if username was accepted fire callback
     client.on('accepted', function (data) {
         accepted = true;
-        console.log(data)
+        console.log(data);
+        canvasData = data['canvasData'];
+        rectData = data['rectData'];
+
+        initialRender(canvasData,rectData);
+
+
         console.log('i am connected wohoo')
+
     })
     client.on('rejected', function (data) {
         accepted = false;
