@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    div zdr bepce (#{username})
+
+    // make username accessible for on_connect.js (stupid jade)
+    script(type='text/javascript').
+        let username = !{JSON.stringify(username)}
+
+    // load fabricjs
+    script(type='text/javascript', src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.4/fabric.min.js")
+
+    div(id='canvas-wrapper')
+        // draw canvas
+        canvas(id='canvas', width, height)
+
+    // load the client handlers needed to establish connection
+    script(type='text/javascript' src='/javascripts/client_handlers/connection_handlers/on_connect.js')
+
+    script(type='text/javascript' src ='/javascripts/client_handlers/connection_handlers/on_accepted.js')
+
+    script(type='text/javascript' src ='/javascripts/client_handlers/connection_handlers/on_kick.js')
+
+    script(type='text/javascript' src ='/javascripts/client_handlers/connection_handlers/on_rejected.js')
+    //load canvas
+    script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/canvas_init.js')
+    // load key listener
+    script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/key_press.js')
+    // load script that loads new players and sends their data to server to be distributed
+    script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/new_player.js')
+    // load game state init for new player script
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_init_data.js')
+    // load game state receiver for new player
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/update.js')
+
