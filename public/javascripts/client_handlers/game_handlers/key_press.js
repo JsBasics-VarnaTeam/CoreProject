@@ -5,53 +5,58 @@ canvasWrapper.addEventListener("keydown", onKeyDown, false)
 canvasWrapper.addEventListener("keyup", onKeyUp, false)
 canvasWrapper.style.outline = "none"
 
-let pressed = []
-let movementInterval = 15
-
-// speed
-let speed = 2
-let turningSpeed = 2
+let pressed = {}
+let movementInterval = 33
 
 setInterval(() => {
-    let key = null
-    for(key in pressed) {
-        // fabric rect obj works with angles in degrees
-        let angle = rect.getAngle()
-        // x is left in fabric
-        let x = rect.getLeft()
-        // y is top in fabric
-        let y = rect.getTop()
+    if(players[clientId] && Object.keys(pressed).length > 0) {
+        let speed = 3
+        let turningSpeed = 3
 
-        //Up key
-        if (key == 38) {
-            x -= Math.cos(rect.getAngleInRadians()) * speed
-            y -= Math.sin(rect.getAngleInRadians()) * speed
-        }
-        //Down key
-        if (key == 40) {
-            x += Math.cos(rect.getAngleInRadians()) * speed
-            y += Math.sin(rect.getAngleInRadians()) * speed
-        }
-        //Left key
-        if (key == 37) {
-            angle -= turningSpeed
-        }
-        //Right key
-        if (key == 39) {
-            angle += turningSpeed
+        let key = null
+        for (key in pressed) {
+            // fabric rect obj works with angles in degrees
+            let angle = players[clientId].rotation
+            // x is left in fabric
+            let x = players[clientId].posX
+            // y is top in fabric
+            let y = players[clientId].posY
+            //Up key
+            if (key == 38) {
+                x -= Math.cos(angleInRadians(angle)) * speed
+                y -= Math.sin(angleInRadians(angle)) * speed
+            }
+            //Down key
+            if (key == 40) {
+                x += Math.cos(angleInRadians(angle)) * speed
+                y += Math.sin(angleInRadians(angle)) * speed
+            }
+            //Left key
+            if (key == 37) {
+                angle -= turningSpeed
+            }
+            //Right key
+            if (key == 39) {
+                angle += turningSpeed
+            }
+
+            players[clientId].posX = x
+            players[clientId].posY = y
+            players[clientId].rotation = angle
+
+            players[clientId]
+                .gameObj
+                .set({'left': players[clientId].posX,
+                        'top': players[clientId].posY,
+                        'angle': players[clientId].rotation})
+
         }
 
-        client.emit('movement', {x: x, y: y, angle: angle})
-
-        rect.set({
-            // left is x
-            'left': x,
-            // top is y
-            'top': y,
-            'angle': angle
+        client.emit('movement', {
+            x: players[clientId].posX,
+            y: players[clientId].posY,
+            rotation: players[clientId].rotation,
         })
-
-
 
         canvas.renderAll()
     }
@@ -74,7 +79,7 @@ function onKeyDown(e) {
         // logic for space (#puckane maika)
         // don't return! (or you will disallow chaining movement and shooting)
         e.preventDefault()
-        client.emit('fire', {x: rect.getLeft, y: rect.getTop(), rotation: rect.getAngle()})
+        client.emit('fire')
     }
 
     if(!(code > 36 && code < 41)){
@@ -91,4 +96,8 @@ function onKeyUp(e) {
     if(pressed[e.keyCode]) {
         delete pressed[e.keyCode]
     }
+}
+
+function angleInRadians(angle) {
+    return angle / 180 * Math.PI
 }

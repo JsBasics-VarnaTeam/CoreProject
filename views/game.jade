@@ -27,9 +27,11 @@ block content
     // load key listener
     script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/key_press.js')
     // load script that loads new players and sends their data to server to be distributed
-    script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/new_player.js')
+    script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/on_new_player.js')
     // load game state init for new player script
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_init_data.js')
     // load game state receiver for new player
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/update.js')
+
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_disconnected_player.js')
 

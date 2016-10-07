@@ -29,11 +29,8 @@ server.listen(port, '0.0.0.0')
 server.on('error', onError)
 server.on('listening', onListening)
 
-/**
- * custom sockets initializition
- */
-
-let socketio = require('socket.io')(server)
+// sockets initialization
+let socketio = require('socket.io', { rememberTransport: false, transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling'] })(server)
 
 require('../server_handlers/master.js')(socketio)
 

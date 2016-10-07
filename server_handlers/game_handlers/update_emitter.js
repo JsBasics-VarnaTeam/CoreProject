@@ -1,13 +1,13 @@
 /**
  * Created by Krasimir on 10/5/2016.
  */
-let fps = 20
-let updateInterval = 1000 / fps
+let updatesPerSecond = 66
+let updateInterval = 1000 / updatesPerSecond
 
 module.exports = (io) => {
     setInterval(() => {
-        io.emit('update', {allPlayers: io.activePlayers})
-    }, 10)
+        io.emit('update', {activePlayers: io.activePlayers, time: new Date().getTime()})
+    }, updateInterval)
 }
 
 

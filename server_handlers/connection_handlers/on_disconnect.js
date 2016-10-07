@@ -2,13 +2,10 @@
  * Created by Krasimir on 10/5/2016.
  */
 module.exports = (io, client) => {
-    let username = client.username
 
-    if(username) {
-        console.log('client ' + client.username + ' disconnected')
-        delete io.allUsernames[username]
-        delete io.activePlayers[username]
-    }
+    console.log('client ' + io.activePlayers[client.id].username + ' disconnected')
 
-    delete io.allClients[client.id]
+    require('../game_handlers/disconnected_player_emitter')(io, client.id)
+
+    delete io.activePlayers[client.id]
 }
