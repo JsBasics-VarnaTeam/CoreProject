@@ -7,11 +7,24 @@ canvasWrapper.style.outline = 'none'
 
 let pressed = {}
 let movementInterval = 33
+let mspf
+
 
 setInterval(() => {
   if (players[clientId] && Object.keys(pressed).length > 0) {
+
+      client.emit('movement', {
+          up: pressed[38],
+          down: pressed[40],
+          left: pressed[37],
+          right: pressed[39],
+          time: new Date().getTime(),
+          lat: avglat
+      })
+
     let speed = 3
     let turningSpeed = 3
+
 
     let key = null
     for (key in pressed) {
@@ -46,18 +59,10 @@ setInterval(() => {
 
       players[clientId]
                 .gameObj
-                .set({'left': players[clientId].posX,
-                        'top': players[clientId].posY,
-                        'angle': players[clientId].rotation})
+                .set({'left': x,
+                        'top': y,
+                        'angle': angle})
     }
-
-    client.emit('movement', {
-      x: players[clientId].posX,
-      y: players[clientId].posY,
-      rotation: players[clientId].rotation
-    })
-
-    canvas.renderAll()
   }
 }, movementInterval)
 
