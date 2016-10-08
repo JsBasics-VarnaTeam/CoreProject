@@ -2,13 +2,11 @@
  * Created by Krasimir on 10/7/2016.
  */
 module.exports = (io, client, data) => {
-    console.log(new Date().getTime())
-    console.log(data.time)
-    let lat = new Date().getTime() - (data.time  + (data.lat * 1000) / 2)
+    let offset = new Date().getTime() - (data.time  + (data.lat * 1000) / 2)
 
-    let moves = lat / 15
+    let moves = offset / 15
     moves = moves < 1 ? 1 : moves
-    console.log('moves: ' + moves)
+    // console.log('moves: ' + moves)
     let speed = 3 * moves
     let turningSpeed = 3 * moves
 
