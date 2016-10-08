@@ -12,45 +12,45 @@ let serverTimeOffset = 0
 // Handshake accepted between server and client
 client.on('connect', () => {
     // Callback on successful connection
-    client.on('my-id', (data) => {
-        clientId = data.id
-    })
+  client.on('my-id', (data) => {
+    clientId = data.id
+  })
 
     // send the server username for """"authentication"""" testing
-    client.emit('username', {username: username})
+  client.emit('username', {username: username})
 
-    client.on('disconnect', () => {
-        window.history.back();
-    })
+  client.on('disconnect', () => {
+    window.history.back()
+  })
 })
 
 // first latency request
-client.emit('latency', Date.now(), function(startTime) {
-    lat = Date.now() - startTime
+client.emit('latency', Date.now(), (startTime) => {
+  lat = Date.now() - startTime
 
-    console.log('latency: ' + lat)
-});
+  console.log('latency: ' + lat)
+})
 
 // keeps track of client latency every 500 ms
 setInterval(() => {
-    client.emit('latency', Date.now(), function(startTime) {
+  client.emit('latency', Date.now(), (startTime) => {
         // averages the latency
-        lat = (lat + (Date.now() - startTime)) / 2
+    lat = (lat + (Date.now() - startTime)) / 2
 
-        console.log('latency: ' + lat)
-    });
+    console.log('latency: ' + lat)
+  })
 }, 500)
 
 // calculates the difference between server clock and client clock
 client.on('time', (data) => {
-    if(lat) {
-        serverTimeOffset = new Date().getTime() - (data.time + lat)
-    } else {
-        serverTimeOffset = new Date().getTime() - data.time
-    }
-    console.log('time offset: ' + serverTimeOffset)
+  if (lat) {
+    serverTimeOffset = new Date().getTime() - (data.time + lat)
+  } else {
+    serverTimeOffset = new Date().getTime() - data.time
+  }
+  console.log('time offset: ' + serverTimeOffset)
 })
 
-window.onbeforeunload = function(e) {
-    client.disconnect();
-};
+window.onbeforeunload = function (e) {
+  client.disconnect()
+}

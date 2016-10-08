@@ -30,16 +30,16 @@ server.on('error', onError)
 server.on('listening', onListening)
 
 // sockets initialization
-//transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']
-let socketio = require('socket.io', { rememberTransport: false } )(server)
-    socketio.set('transports', ['websocket']);
+// transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']
+let socketio = require('socket.io', { rememberTransport: false })(server)
+socketio.set('transports', ['websocket'])
 require('../server_handlers/master.js')(socketio)
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort (val) {
   let port = parseInt(val, 10)
 
   if (isNaN(port)) {
@@ -59,7 +59,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError (error) {
   if (error.syscall !== 'listen') {
     throw error
   }
@@ -87,12 +87,11 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+function onListening () {
   let addr = server.address()
   let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port
   debug('Listening on ' + bind)
 }
-
 

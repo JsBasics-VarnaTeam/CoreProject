@@ -5,10 +5,8 @@ let updatesPerSecond = 66
 let updateInterval = 1000 / updatesPerSecond
 
 module.exports = (io) => {
-    setInterval(() => {
-        io.emit('update', {activePlayers: io.activePlayers, time: new Date().getTime()})
-    }, updateInterval)
+  setInterval(() => {
+    io.emit('update', {activePlayers: io.activePlayers, time: new Date().getTime()})
+  }, updateInterval)
 }
-
-
 
