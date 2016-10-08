@@ -1,10 +1,7 @@
 /**
  * Created by Krasimir on 10/2/2016.
  */
-let client = io().connect('192.168.0.2:3000/', {autoConnect: false,
-                                                reconnect: false,
-                                                rememberTransport: false,
-                                                transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling'] })
+let client = io({transports: ['websocket'], upgrade: false})
 let players = {}
 // holds client id received from server
 let clientId

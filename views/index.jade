@@ -3,8 +3,7 @@ extends layout
 block content
     h1 Hello
     h3 Choose your username
-    // change localhost to IP of host for testing with multiple pc's
-    form(action="http://localhost:3000/connect" method="GET")
+    form(action="/connect" method="GET")
             input(type='Text', id='username' name="username")
             br
             input(type='submit', id='submit', value='Connect')

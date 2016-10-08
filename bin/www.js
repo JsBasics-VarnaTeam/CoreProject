@@ -30,8 +30,9 @@ server.on('error', onError)
 server.on('listening', onListening)
 
 // sockets initialization
-let socketio = require('socket.io', { rememberTransport: false, transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling'] })(server)
-
+//transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']
+let socketio = require('socket.io', { rememberTransport: false } )(server)
+    socketio.set('transports', ['websocket']);
 require('../server_handlers/master.js')(socketio)
 
 /**
