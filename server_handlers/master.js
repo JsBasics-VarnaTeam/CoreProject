@@ -1,6 +1,10 @@
 /**
  * Created by Krasimir on 10/2/2016.
  */
+Math.getAngleInRadians = function (angle) {
+  return angle / 180 * Math.PI
+}
+
 module.exports = (io) => {
   io.activePlayers = {}
   io.map = []

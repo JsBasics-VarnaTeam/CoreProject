@@ -6,9 +6,14 @@ let players = {}
 // holds client id received from server
 let clientId
 // keeps track of latency between server and client
-let lat
+let lat = []
+let avglat
 let serverTimeOffset = 0
 let map = []
+
+function avg(arr) {
+  return arr.reduce((a, b) => { return a + b}) / arr.length
+}
 
 // Handshake accepted between server and client
 client.on('connect', () => {
@@ -25,27 +30,25 @@ client.on('connect', () => {
   })
 })
 
-// first latency request
-client.emit('latency', Date.now(), (startTime) => {
-  lat = Date.now() - startTime
-
-  // console.log('latency: ' + lat)
-})
-
 // keeps track of client latency every 500 ms
 setInterval(() => {
-  client.emit('latency', Date.now(), (startTime) => {
+  client.emit('latency', new Date().getTime(), (startTime) => {
         // averages the latency
-    lat = (lat + (Date.now() - startTime)) / 2
+    lat.push((new Date().getTime() - startTime))
 
-    // console.log('latency: ' + lat)
+    if(lat.length > 80) {
+      lat.shift()
+    }
+
+    avglat = avg(lat)
+    console.log(avglat)
   })
-}, 500)
+}, 1000)
 
 // calculates the difference between server clock and client clock
 client.on('time', (data) => {
-  if (lat) {
-    serverTimeOffset = new Date().getTime() - (data.time + lat)
+  if (avglat) {
+    serverTimeOffset = new Date().getTime() - (data.time + avglat)
   } else {
     serverTimeOffset = new Date().getTime() - data.time
   }

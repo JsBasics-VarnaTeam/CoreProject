@@ -18,9 +18,9 @@ module.exports = (io) => {
 
         client.on('latency', function (startTime, cb) {
             cb(startTime)
-
-            io.emit('time', {time: new Date().getTime()})
+            io.to(client.id).emit('time', {time: new Date().getTime()})
         })
+
 
 
         client.on('movement', (data) => {
