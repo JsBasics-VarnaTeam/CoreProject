@@ -1,8 +1,17 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: black;
+  background-color: darkgray;
 }
 
 a {
   color: #00B7FF;
+}
+
+#canvas {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border: 10px solid lightblue
 }

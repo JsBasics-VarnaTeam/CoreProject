@@ -36,7 +36,7 @@ let canvas = null
 let canvasData = {
     width: width,
     height: height,
-    backgroundColor : 'rgb(100,100,200)'}
+    backgroundColor : '#e9e9e9'}
 
 // let rectData = {
 //     fill: 'red',

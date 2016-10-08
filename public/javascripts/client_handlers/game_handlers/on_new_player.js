@@ -5,33 +5,33 @@
 // receives data needed to add new player
 // every time such joins
 client.on('new-player', (data) => {
-    if(data.id === clientId) {
-        return
-    }
+  if (data.id === clientId) {
+    return
+  }
 
-    let newPlayerUsername = data.username
-    let posX = data.posX
-    let posY = data.posY
-    let rotation = data.rotation
+  let newPlayerUsername = data.username
+  let posX = data.posX
+  let posY = data.posY
+  let rotation = data.rotation
 
-    players[data.id] = {username: newPlayerUsername, posX: posX, posY: posY, rotation: rotation}
+  players[data.id] = {username: newPlayerUsername, posX: posX, posY: posY, rotation: rotation}
 
-    let newPlayerRectData = {
-        id: data.id,
-        fill: 'red',
-        width: 20,
-        height: 20,
-        top: posY,
-        left: posX,
-        angle: rotation,
-        originX: 'center',
-        originY: 'center',}
+  let newPlayerRectData = {
+    id: data.id,
+    width: 80,
+    height: 60,
+    top: posY,
+    left: posX,
+    angle: rotation,
+    originX: 'center',
+    originY: 'center' }
 
-    let newPlayerRect = new fabric.Rect(newPlayerRectData)
+  let imgElement = document.getElementById('my-image')
+  let newPlayerRect = new fabric.Image(imgElement, newPlayerRectData)
 
-    players[data.id].gameObj = newPlayerRect
+  players[data.id].gameObj = newPlayerRect
 
-    console.log(newPlayerRect)
+  console.log(newPlayerRect)
 
-    canvas.add(players[data.id].gameObj)
+  canvas.add(players[data.id].gameObj)
 })
