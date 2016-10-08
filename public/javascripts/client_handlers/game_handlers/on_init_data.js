@@ -16,7 +16,7 @@ client.on('init-data', (data) => {
     players[id].posY = activePlayers[id].posY
     players[id].rotation = activePlayers[id].rotation
 
-    let newPlayerRectData = {
+    let newPlayerData = {
       id: id,
       width: 60,
       height: 40,
@@ -28,11 +28,11 @@ client.on('init-data', (data) => {
     }
 
     let imgElement = document.getElementById('my-image')
-    let newPlayerRect = new fabric.Image(imgElement, newPlayerRectData)
+    let newPlayer = new fabric.Image(imgElement, newPlayerData)
 
-    players[id].gameObj = newPlayerRect
+    players[id].gameObj = newPlayer
 
-    console.log(newPlayerRect)
+    console.log(newPlayer)
 
     canvas.add(players[id].gameObj)
   }

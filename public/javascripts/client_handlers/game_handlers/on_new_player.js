@@ -16,7 +16,7 @@ client.on('new-player', (data) => {
 
   players[data.id] = {username: newPlayerUsername, posX: posX, posY: posY, rotation: rotation}
 
-  let newPlayerRectData = {
+  let newPlayerData = {
     id: data.id,
     width: 60,
     height: 40,
@@ -27,11 +27,11 @@ client.on('new-player', (data) => {
     originY: 'center' }
 
   let imgElement = document.getElementById('my-image')
-  let newPlayerRect = new fabric.Image(imgElement, newPlayerRectData)
+  let newPlayer = new fabric.Image(imgElement, newPlayerData)
 
-  players[data.id].gameObj = newPlayerRect
+  players[data.id].gameObj = newPlayer
 
-  console.log(newPlayerRect)
+  console.log(newPlayer)
 
   canvas.add(players[data.id].gameObj)
 })

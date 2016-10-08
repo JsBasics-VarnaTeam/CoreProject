@@ -14,7 +14,7 @@ block content
 
     div(id='canvas-wrapper')
         // draw canvas
-        canvas(id='canvas', width, height)
+        canvas(id='canvas', width, height, tabindex="0")
 
     // load the client handlers needed to establish connection
     script(type='text/javascript' src='/javascripts/client_handlers/connection_handlers/on_connect.js')
@@ -39,4 +39,6 @@ block content
 
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_disconnected_player.js')
 
+    script.
+        document.getElementById("canvas").focus();
 

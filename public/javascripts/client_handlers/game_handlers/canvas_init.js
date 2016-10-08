@@ -16,22 +16,6 @@ function canvasGetById (id) {
 let width = 1200
 let height = 600
 let canvas = null
-// let rect = null
-
-// get random int so every new player spawns on a random location
-// function getRandomInt(min, max) {
-//     return Math.floor(Math.random() * (max - min + 1)) + min
-// }
-/**
- *
- * @param rect
- * @param top if left null, a random will be chosen
- * @param left if left null, a random will be chosen
- */
-// function addPossitionPropertiesToRect(rect, top = null, left = null) {
-//     rect['top'] = top || getRandomInt(0, height)
-//     rect['left'] = left || getRandomInt(0, width)
-// }
 
 let canvasData = {
   width: width,
@@ -39,15 +23,6 @@ let canvasData = {
   backgroundColor: '#e9e9e9',
   borderWidth: 15
 }
-
-  //
-
-// let rectData = {
-//     fill: 'red',
-//     width: 20,
-//     height: 20,
-//     originX: 'center',
-//     originY: 'center',}
 
 function initialRender (canvasData, rectData) {
     // console.log(canvasData)
@@ -57,19 +32,8 @@ function initialRender (canvasData, rectData) {
   canvas = new fabric.StaticCanvas('canvas', canvasData)
 
   canvas.setBackgroundImage('/assets/background.jpg', canvas.renderAll.bind(canvas), {
-    backgroundImageOpacity: 1,
     backgroundImageStretch: false
   })
-
-// create a rectangle object
-//     rect = new fabric.Rect(rectData)
-//
-//     addPossitionPropertiesToRect(rect)
-//
-// // "add" rectangle onto canvas
-//     canvas.add(rect)
 }
 
 initialRender(canvasData)
-
-// client.emit('ready', {x: rect.getLeft(), y: rect.getTop(), rotation: rect.getAngle()})
