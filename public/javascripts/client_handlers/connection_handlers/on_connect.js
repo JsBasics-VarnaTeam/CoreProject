@@ -9,6 +9,7 @@ let clientId
 let lat = []
 let avglat
 let serverTimeOffset = 0
+let map = []
 
 function avg(arr) {
   return arr.reduce((a, b) => { return a + b}) / arr.length
@@ -25,7 +26,7 @@ client.on('connect', () => {
   client.emit('username', {username: username})
 
   client.on('disconnect', () => {
-    window.history.back()
+    // window.history.back()
   })
 })
 
@@ -51,7 +52,7 @@ client.on('time', (data) => {
   } else {
     serverTimeOffset = new Date().getTime() - data.time
   }
-  console.log('time offset: ' + serverTimeOffset)
+  // console.log('time offset: ' + serverTimeOffset)
 })
 
 window.onbeforeunload = function (e) {

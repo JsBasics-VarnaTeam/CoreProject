@@ -4,8 +4,12 @@ module.exports = (io) => {
         require('./id_emitter')(io, client)
 
         client.on('username', (data) => {
+            if (Object.keys(io.activePlayers).length === 0) {
+                require('./../game_handlers/map_generator')(io)
+            }
             let received = require('./../game_handlers/on_username')(io, client, data.username)
             if(received) {
+                require('./../game_handlers/map_emitter')(io)
                 require('./../game_handlers/generate_position')(io, client.id)
                 require('./../game_handlers/init_emitter')(io, client)
                 require('./../game_handlers/new_player_emitter')(io, client)
