@@ -38,6 +38,8 @@ let canvasData = {
   height: height,
   backgroundColor: '#e9e9e9'}
 
+  //
+
 // let rectData = {
 //     fill: 'red',
 //     width: 20,
@@ -51,6 +53,12 @@ function initialRender (canvasData, rectData) {
 
 // create canvas object
   canvas = new fabric.StaticCanvas('canvas', canvasData)
+
+  canvas.setBackgroundImage('http://opengameart.org/sites/default/files/styles/watermarked/public/sand_template.jpg', canvas.renderAll.bind(canvas), {
+    backgroundImageOpacity: 1,
+    backgroundImageStretch: false
+  })
+
 // create a rectangle object
 //     rect = new fabric.Rect(rectData)
 //
