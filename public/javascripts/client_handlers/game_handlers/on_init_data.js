@@ -18,8 +18,8 @@ client.on('init-data', (data) => {
 
     let newPlayerRectData = {
       id: id,
-      width: 80,
-      height: 60,
+      width: 60,
+      height: 40,
       top: players[id].posY,
       left: players[id].posX,
       angle: players[id].rotation,

@@ -36,7 +36,9 @@ let canvas = null
 let canvasData = {
   width: width,
   height: height,
-  backgroundColor: '#e9e9e9'}
+  backgroundColor: '#e9e9e9',
+  borderWidth: 15
+}
 
   //
 
@@ -54,7 +56,7 @@ function initialRender (canvasData, rectData) {
 // create canvas object
   canvas = new fabric.StaticCanvas('canvas', canvasData)
 
-  canvas.setBackgroundImage('http://opengameart.org/sites/default/files/styles/watermarked/public/sand_template.jpg', canvas.renderAll.bind(canvas), {
+  canvas.setBackgroundImage('/assets/background.jpg', canvas.renderAll.bind(canvas), {
     backgroundImageOpacity: 1,
     backgroundImageStretch: false
   })

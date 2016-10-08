@@ -8,6 +8,7 @@ let clientId
 // keeps track of latency between server and client
 let lat
 let serverTimeOffset = 0
+let map = []
 
 // Handshake accepted between server and client
 client.on('connect', () => {
@@ -20,7 +21,7 @@ client.on('connect', () => {
   client.emit('username', {username: username})
 
   client.on('disconnect', () => {
-    window.history.back()
+    // window.history.back()
   })
 })
 
@@ -28,7 +29,7 @@ client.on('connect', () => {
 client.emit('latency', Date.now(), (startTime) => {
   lat = Date.now() - startTime
 
-  console.log('latency: ' + lat)
+  // console.log('latency: ' + lat)
 })
 
 // keeps track of client latency every 500 ms
@@ -37,7 +38,7 @@ setInterval(() => {
         // averages the latency
     lat = (lat + (Date.now() - startTime)) / 2
 
-    console.log('latency: ' + lat)
+    // console.log('latency: ' + lat)
   })
 }, 500)
 
@@ -48,7 +49,7 @@ client.on('time', (data) => {
   } else {
     serverTimeOffset = new Date().getTime() - data.time
   }
-  console.log('time offset: ' + serverTimeOffset)
+  // console.log('time offset: ' + serverTimeOffset)
 })
 
 window.onbeforeunload = function (e) {
