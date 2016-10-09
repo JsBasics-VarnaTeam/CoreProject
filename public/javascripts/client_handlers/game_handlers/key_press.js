@@ -7,7 +7,13 @@ canvasWrapper.style.outline = 'none'
 
 let pressed = {}
 let movementInterval = 33
-let mspf
+// TODO find a way to init these with accurate values
+// eg.
+// Math.cos(angleInRadians(angle)) * speed
+// Math.sin(angleInRadians(angle)) * speed
+let shouldInitOffsets = true
+let xOffset = 0;
+let yOffset = 0;
 
 
 setInterval(() => {
@@ -25,6 +31,11 @@ setInterval(() => {
     let speed = 3
     let turningSpeed = 3
 
+    if(shouldInitOffsets){
+      xOffset = Math.cos(angleInRadians(players[clientId].rotation)) * speed
+      yOffset = Math.sin(angleInRadians(players[clientId].rotation)) * speed
+      shouldInitOffsets = false
+    }
 
     let key = null
     for (key in pressed) {
@@ -34,25 +45,39 @@ setInterval(() => {
       let x = players[clientId].posX
             // y is top in fabric
       let y = players[clientId].posY
-            // Up key
-      if (key == 38) {
-        x -= Math.cos(angleInRadians(angle)) * speed
-        y -= Math.sin(angleInRadians(angle)) * speed
-      }
-            // Down key
-      if (key == 40) {
-        x += Math.cos(angleInRadians(angle)) * speed
-        y += Math.sin(angleInRadians(angle)) * speed
-      }
+
+      let shouldUpdateOffsets = false;
             // Left key
       if (key == 37) {
         angle -= turningSpeed
+        shouldUpdateOffsets = true;
+
       }
             // Right key
       if (key == 39) {
         angle += turningSpeed
+        shouldUpdateOffsets = true
       }
-
+      //if angle is changed => update offsets
+      // further optimisation possible if condition is true only when
+      // up or down key pressed ( thats the only time we need to update offsets )
+      if(shouldUpdateOffsets){
+        xOffset = Math.cos(angleInRadians(angle)) * speed
+        yOffset = Math.sin(angleInRadians(angle)) * speed
+        shouldUpdateOffsets = false
+      }
+          // Up key
+      if (key == 38) {
+        console.log(xOffset)
+        console.log(yOffset)
+        x -= xOffset
+        y -= yOffset
+      }
+          // Down key
+      if (key == 40) {
+        x += xOffset
+        y += yOffset
+      }
       players[clientId].posX = x
       players[clientId].posY = y
       players[clientId].rotation = angle
