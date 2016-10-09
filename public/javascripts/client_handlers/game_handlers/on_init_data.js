@@ -35,22 +35,10 @@ client.on('init-data', (data) => {
     canvas.add(players[id].gameObj)
   }
   let activeBullets = data.activeBullets
-  console.log('activeBullets')
-  console.log(activeBullets)
   for(shooterId in activeBullets){
-      let bullet
-      for(bullet of activeBullets[shooterId]){
-        console.log('bullet')
-        console.log(bullet)
-        // let newBullet = new fabric.Circle({
-        //     left:bullet.posX,
-        //     top:bullet.posY,
-        //     angle: bullet.angle,
-        //     radius:5,
-        //     stroke:'red',
-        //     strokeWidth:3,
-        //     fill:'white'
-        // });
+      let bulletId
+      for(bulletId in activeBullets[shooterId]){
+        let bullet = activeBullets[shooterId][bulletId]
         let newBullet=new fabric.Circle({
           left:bullet['left'],
           top:bullet['top'],
@@ -63,11 +51,15 @@ client.on('init-data', (data) => {
           fill:'white',
 
         });
-        console.log('newBullet')
-        console.log(newBullet)
-        console.log('top and left')
-        console.log(newBullet.getTop())
-        console.log(newBullet.getLeft())
+        if(!bullets[shooterId]){
+          bullets[shooterId] = {}
+        }
+        bullets[shooterId][bulletId]['posX'] = bullet['left']
+        bullets[shooterId][bulletId]['posY'] = bullet['top']
+        bullets[shooterId][bulletId]['xOffset'] = bullet['xOffset']
+        bullets[shooterId][bulletId]['yOffset'] = bullet['yOffset']
+        bullets[shooterId][bulletId]['angle'] = bullet['angle']
+        bullets[shooterId][bulletId]['gameObj'] = newBullet
         canvas.add(newBullet)
       }
   }

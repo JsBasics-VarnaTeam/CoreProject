@@ -9,4 +9,3 @@ module.exports = (io) => {
     io.emit('update', {activePlayers: io.activePlayers, activeBullets: io.activeBullets, time: new Date().getTime()})
   }, updateInterval)
 }
-

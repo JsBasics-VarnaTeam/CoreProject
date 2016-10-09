@@ -13,6 +13,7 @@ module.exports = (io, client) => {
         yOffset: bulletYOffset,
         angle: io.activePlayers[client.id].rotation
     }
+    console.log(io.activePlayers[client.id].rotation)
     if(!io.activeBullets[client.id]){
         io.activeBullets[client.id] = []
     }

@@ -22,11 +22,9 @@ setTimeout(() => {
 
         // buffer.push({data: data, tdP: tdPercentage})
 
-
           // let data = buffer.pop()
           // let tdPercentage = data.tdP
          // data = data.data
-
           let id
           for (id in players) {
               // position and rotation interpolation (frame of 15 ms)
@@ -50,6 +48,54 @@ setTimeout(() => {
 
 
           }
+
+          let shooterId
+
+      for(shooterId in data.activeBullets) {
+          if(!bullets[shooterId]){
+              bullets[shooterId] = {}
+          }
+          let bulletId
+          for (bulletId in data.activeBullets[shooterId]) {
+              if(!bullets[shooterId][bulletId]){
+                  let bullet = bullets[shooterId][bulletId] = data.activeBullets[shooterId][bulletId]
+                  let newBullet=new fabric.Circle({
+                      left:bullet['left'],
+                      top:bullet['top'],
+                      xOffset: bullet['xOffset'],
+                      yOffset: bullet['yOffset'],
+                      angle: bullet['angle'],
+                      radius:5,
+                      stroke:'red',
+                      strokeWidth:3,
+                      fill:'white',
+
+                  });
+                  if(!bullets[shooterId]){
+                      bullets[shooterId] = {}
+                  }
+                  bullets[shooterId][bulletId]['posX'] = bullet['left']
+                  bullets[shooterId][bulletId]['posY'] = bullet['top']
+                  bullets[shooterId][bulletId]['xOffset'] = bullet['xOffset']
+                  bullets[shooterId][bulletId]['yOffset'] = bullet['yOffset']
+                  bullets[shooterId][bulletId]['angle'] = bullet['angle']
+                  bullets[shooterId][bulletId]['gameObj'] = newBullet
+                  canvas.add(newBullet)
+              }
+
+              let bullet = bullets[shooterId][bulletId]
+              bullet.posX = bullet.posX + tdPercentage * (data.activeBullets[shooterId][bulletId].posX - bullet.posX)
+              bullet.posY = bullet.posY + tdPercentage * (data.activeBullets[shooterId][bulletId].posY - bullet.posY)
+
+              bullets[shooterId][bulletId]
+                  .gameObj
+                  .set({
+                      'left': bullets[shooterId][bulletId].posX,
+                      'top': bullets[shooterId][bulletId].posY
+                  })
+
+          }
+      }
 
           // keep frame buffer limited to 6 frames of 15ms (~100 ms)
           // if (buffer.length > 6) {

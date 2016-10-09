@@ -107,6 +107,7 @@ function onKeyDown (e) {
         // don't return! (or you will disallow chaining movement and shooting)
     e.preventDefault()
     client.emit('fire')
+    console.log(players)
   }
 
   if (!(code > 36 && code < 41)) {
