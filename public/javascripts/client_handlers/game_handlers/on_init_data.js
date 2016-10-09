@@ -6,6 +6,7 @@
 // to load himself and other players
 client.on('init-data', (data) => {
   let activePlayers = data.activePlayers
+  console.log('activePlayers')
   console.log(activePlayers)
 
   let id
@@ -31,11 +32,44 @@ client.on('init-data', (data) => {
     let newPlayer = new fabric.Image(imgElement, newPlayerData)
 
     players[id].gameObj = newPlayer
-
-    console.log(newPlayer)
-
     canvas.add(players[id].gameObj)
   }
+  let activeBullets = data.activeBullets
+  console.log('activeBullets')
+  console.log(activeBullets)
+  for(shooterId in activeBullets){
+      let bullet
+      for(bullet of activeBullets[shooterId]){
+        console.log('bullet')
+        console.log(bullet)
+        // let newBullet = new fabric.Circle({
+        //     left:bullet.posX,
+        //     top:bullet.posY,
+        //     angle: bullet.angle,
+        //     radius:5,
+        //     stroke:'red',
+        //     strokeWidth:3,
+        //     fill:'white'
+        // });
+        let newBullet=new fabric.Circle({
+          left:bullet['left'],
+          top:bullet['top'],
+          xOffset: bullet['xOffset'],
+          yOffset: bullet['yOffset'],
+          angle: bullet['angle'],
+          radius:5,
+          stroke:'red',
+          strokeWidth:3,
+          fill:'white',
 
+        });
+        console.log('newBullet')
+        console.log(newBullet)
+        console.log('top and left')
+        console.log(newBullet.getTop())
+        console.log(newBullet.getLeft())
+        canvas.add(newBullet)
+      }
+  }
   canvas.renderAll()
 })

@@ -30,7 +30,7 @@ client.on('new-player', (data) => {
   let newPlayer = new fabric.Image(imgElement, newPlayerData)
 
   players[data.id].gameObj = newPlayer
-
+  bullets[data.id] = {}
   console.log(newPlayer)
 
   canvas.add(players[data.id].gameObj)

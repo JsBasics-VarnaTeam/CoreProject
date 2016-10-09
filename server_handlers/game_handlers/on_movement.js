@@ -29,7 +29,7 @@ module.exports = (io, client, data) => {
         io.activePlayers[client.id].rotation += turningSpeed
         shouldUpdateOffsets = true;
     }
-    if(shouldUpdateOffsets){
+    if(shouldUpdateOffsets ){
         xOffset = Math.cos(Math.getAngleInRadians(io.activePlayers[client.id].rotation)) * speed
         yOffset = Math.sin(Math.getAngleInRadians(io.activePlayers[client.id].rotation)) * speed
         shouldUpdateOffsets = false;

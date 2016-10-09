@@ -3,6 +3,7 @@
  */
 let client = io({transports: ['websocket'], upgrade: false})
 let players = {}
+let bullets = {}
 // holds client id received from server
 let clientId
 // keeps track of latency between server and client

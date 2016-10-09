@@ -68,8 +68,6 @@ setInterval(() => {
       }
           // Up key
       if (key == 38) {
-        console.log(xOffset)
-        console.log(yOffset)
         x -= xOffset
         y -= yOffset
       }

@@ -47,6 +47,8 @@ setTimeout(() => {
                       'top': players[id].posY,
                       'angle': players[id].rotation
                   })
+
+
           }
 
           // keep frame buffer limited to 6 frames of 15ms (~100 ms)

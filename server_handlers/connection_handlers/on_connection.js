@@ -27,8 +27,16 @@ module.exports = (io) => {
             require('../game_handlers/on_movement')(io, client, data)
         })
 
+        client.on('fire', () => {
+            require('../game_handlers/on_fire')(io, client)
+        })
+
+
+
         client.on('disconnect', () => {
             require('./on_disconnect')(io, client)
         })
+
+
     })
 }
