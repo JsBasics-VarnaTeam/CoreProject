@@ -1,5 +1,4 @@
 module.exports = (io) => {
-  console.log('HERE IS THE MAP')
   io.map = []
   for (let row = 100; row < 600; row += 100) {
     for (let col = 100; col < 1200; col += 100) {

@@ -13,6 +13,10 @@ function canvasGetById (id) {
   }
 }
 
+Math.getAngleInRadians = function (angle) {
+  return angle / 180 * Math.PI
+}
+
 let width = 1200
 let height = 600
 let canvas = null

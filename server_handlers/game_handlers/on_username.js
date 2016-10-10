@@ -8,11 +8,24 @@ module.exports = (io, client, username) => {
     return false
   }
 
-  io.activePlayers[client.id] = {username: username}
+  let x = getRandomInt(100, 1100)
+  let y = getRandomInt(100, 500)
+  let rotation = getRandomInt(0, 360)
+
+  io.activePlayers[client.id] = {
+    username: username,
+    bullets: [],
+    x: x,
+    y: y,
+    rotation: rotation}
 
   io.to(client.id).emit('accepted')
 
   console.log('client ' + username + ' connected')
 
   return true
+}
+
+function getRandomInt (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
