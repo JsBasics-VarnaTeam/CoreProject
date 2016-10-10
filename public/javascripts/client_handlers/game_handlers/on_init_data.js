@@ -5,63 +5,62 @@
 // Receives the initial data a player needs
 // to load himself and other players
 client.on('init-data', (data) => {
-  let activePlayers = data.activePlayers
-  console.log('activePlayers')
-  console.log(activePlayers)
-
   let id
-  for (id in activePlayers) {
-    players[id] = {}
-    players[id].username = activePlayers[id].username
-    players[id].posX = activePlayers[id].posX
-    players[id].posY = activePlayers[id].posY
-    players[id].rotation = activePlayers[id].rotation
+  for (id in data.activePlayers) {
+    let bullets = []
+    for(let bullet of data.activePlayers[id].bullets) {
+      let bulletData = {
+        radius: 4,
+        fill: 'black',
+        left: bullet.x,
+        top: bullet.y,
+        originX: 'center',
+        originY: 'center'
+      }
 
-    let newPlayerData = {
-      id: id,
+      bullet.gameObj = new fabric.Circle(bulletData)
+      bullets.push(bullet)
+      canvas.add(bullet.gameObj)
+    }
+
+    data.activePlayers[id].x = Math.floor(data.activePlayers[id].x)
+    data.activePlayers[id].y = Math.floor(data.activePlayers[id].y)
+    data.activePlayers[id].rotation = Math.floor(data.activePlayers[id].rotation)
+
+    let newPlayerRectData = {
       width: 60,
       height: 40,
-      top: players[id].posY,
-      left: players[id].posX,
-      angle: players[id].rotation,
+      top: data.activePlayers[id].y,
+      left: data.activePlayers[id].x,
+      angle: data.activePlayers[id].rotation,
       originX: 'center',
       originY: 'center'
     }
 
-    let imgElement = document.getElementById('my-image')
-    let newPlayer = new fabric.Image(imgElement, newPlayerData)
+    console.log('RECT DATA')
+    console.log(newPlayerRectData)
 
-    players[id].gameObj = newPlayer
+    let imgElement = document.getElementById('my-image')
+    let gameObj = new fabric.Image(imgElement, newPlayerRectData)
+
+    newPlayer = {
+        username: data.activePlayers[id].username,
+        bullets: bullets,
+        x: data.activePlayers[id].x,
+        y: data.activePlayers[id].y,
+        rotation: data.activePlayers[id].rotation,
+        gameObj: gameObj
+    }
+
+    console.log(isNaN(newPlayer.x))
+    console.log(newPlayer)
+    console.log(newPlayer.x)
+
+    players[id] = newPlayer
+    console.log(players[id])
+
     canvas.add(players[id].gameObj)
   }
-  let activeBullets = data.activeBullets
-  for(shooterId in activeBullets){
-      let bulletId
-      for(bulletId in activeBullets[shooterId]){
-        let bullet = activeBullets[shooterId][bulletId]
-        let newBullet=new fabric.Circle({
-          left:bullet['left'],
-          top:bullet['top'],
-          xOffset: bullet['xOffset'],
-          yOffset: bullet['yOffset'],
-          angle: bullet['angle'],
-          radius:5,
-          stroke:'red',
-          strokeWidth:3,
-          fill:'white',
 
-        });
-        if(!bullets[shooterId]){
-          bullets[shooterId] = {}
-        }
-        bullets[shooterId][bulletId]['posX'] = bullet['left']
-        bullets[shooterId][bulletId]['posY'] = bullet['top']
-        bullets[shooterId][bulletId]['xOffset'] = bullet['xOffset']
-        bullets[shooterId][bulletId]['yOffset'] = bullet['yOffset']
-        bullets[shooterId][bulletId]['angle'] = bullet['angle']
-        bullets[shooterId][bulletId]['gameObj'] = newBullet
-        canvas.add(newBullet)
-      }
-  }
   canvas.renderAll()
 })

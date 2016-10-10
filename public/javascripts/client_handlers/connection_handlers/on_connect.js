@@ -3,7 +3,6 @@
  */
 let client = io({transports: ['websocket'], upgrade: false})
 let players = {}
-let bullets = {}
 // holds client id received from server
 let clientId
 // keeps track of latency between server and client
@@ -27,7 +26,7 @@ client.on('connect', () => {
   client.emit('username', {username: username})
 
   client.on('disconnect', () => {
-    // window.history.back()
+     window.history.back()
   })
 })
 
@@ -37,12 +36,11 @@ setInterval(() => {
         // averages the latency
     lat.push((new Date().getTime() - startTime))
 
-    if(lat.length > 80) {
+    if(lat.length > 50) {
       lat.shift()
     }
 
     avglat = avg(lat)
-    console.log(avglat)
   })
 }, 1000)
 
@@ -59,3 +57,12 @@ client.on('time', (data) => {
 window.onbeforeunload = function (e) {
   client.disconnect()
 }
+
+setInterval(() => {
+  console.log('lat: ' + avglat)
+  console.log('serverTimeOffset: ' + serverTimeOffset)
+}, 5000)
+
+// setInterval(() => {
+// }, 5000)
+

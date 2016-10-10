@@ -35,10 +35,14 @@ block content
     // load game state init for new player script
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_init_data.js')
     // load game state receiver for new player
-    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/update.js')
 
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_disconnected_player.js')
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_pre_update.js')
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_new_bullet.js')
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/bullet_updater.js')
+    script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/update.js')
 
     script.
-        document.getElementById("canvas").focus();
+        document.getElementById("canvas").focus()
+
 

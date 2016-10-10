@@ -9,34 +9,31 @@ module.exports = (io) => {
             }
             let received = require('./../game_handlers/on_username')(io, client, data.username)
             if(received) {
-                require('./../game_handlers/map_emitter')(io)
-                require('./../game_handlers/generate_position')(io, client.id)
+                require('./../game_handlers/map_emitter')(io, client)
                 require('./../game_handlers/init_emitter')(io, client)
                 require('./../game_handlers/new_player_emitter')(io, client)
             }
         })
 
-        client.on('latency', function (startTime, cb) {
+        client.on('latency', (startTime, cb) => {
             cb(startTime)
             io.to(client.id).emit('time', {time: new Date().getTime()})
         })
 
-
+        client.on('bullet', (data) => {
+            setImmediate((io, client, data) => {
+                require('../game_handlers/on_bullet')(io, client, data)
+            }, io, client, data)
+        })
 
         client.on('movement', (data) => {
-            require('../game_handlers/on_movement')(io, client, data)
+            setImmediate((io, client, data) => {
+                require('../game_handlers/on_movement')(io, client, data)
+            }, io, client, data)
         })
-
-        client.on('fire', () => {
-            require('../game_handlers/on_fire')(io, client)
-        })
-
-
 
         client.on('disconnect', () => {
             require('./on_disconnect')(io, client)
         })
-
-
     })
 }

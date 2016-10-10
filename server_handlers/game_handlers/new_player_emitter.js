@@ -4,11 +4,12 @@
 module.exports = (io, client) => {
   let newPlayer = io.activePlayers[client.id]
 
-  io.emit('new-player', {
+  client.broadcast.emit('new-player', {
     id: client.id,
     username: newPlayer.username,
-    posX: newPlayer.posX,
-    posY: newPlayer.posY,
-    rotation: newPlayer.rotation
+    x: newPlayer.x,
+    y: newPlayer.y,
+    rotation: newPlayer.rotation,
+    bullets: newPlayer.bullets
   })
 }
