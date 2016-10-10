@@ -42,10 +42,11 @@ client.on('new-player', (data) => {
   }
 
   let newPlayerRectData = {
+    id: data.id,
     width: 60,
     height: 40,
-    top: y,
-    left: x,
+    top: posY,
+    left: posX,
     angle: rotation,
     originX: 'center',
     originY: 'center' }
