@@ -24,7 +24,7 @@ setTimeout(() => {
         let moves = timeDiff / assumedUpdateRateMs
         moves = moves < 1 ? 1 : moves
         // console.log('moves: ' + moves)
-        let speed = 3 * moves
+        // let speed = 3 * moves
         let bulletSpeed = 5 * moves
 
         // let data = buffer.pop()
@@ -40,9 +40,11 @@ setTimeout(() => {
             // } else {
                 // position and rotation interpolation (frame of 45 ms)
                 // less 'teleporting'
-            players[id].x = data.activePlayers[id].x - Math.cos(Math.getAngleInRadians(data.activePlayers[id].rotation)) * speed
-            players[id].y = data.activePlayers[id].y - Math.sin(Math.getAngleInRadians(data.activePlayers[id].rotation)) * speed
+            players[id].x = data.activePlayers[id].x
+            players[id].y = data.activePlayers[id].y
             players[id].rotation = data.activePlayers[id].rotation
+                // - Math.cos(Math.getAngleInRadians(data.activePlayers[id].rotation)) * speed
+                // - Math.sin(Math.getAngleInRadians(data.activePlayers[id].rotation)) * speed
                 // players[id].rotation + tdPercentage * (data.activePlayers[id].rotation - players[id].rotation)
             // }
 
