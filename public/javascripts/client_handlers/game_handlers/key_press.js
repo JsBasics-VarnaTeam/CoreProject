@@ -93,6 +93,7 @@ function onKeyDown (e) {
 
     if (code === 88 && players[clientId].bullets.length < 3 && !pressed[code]) {
         pressed[code] = true
+        e.preventDefault()
         // x key registered
         // logic for x (#puckane maika)
         // don't return! (or you will disallow chaining movement and shooting)
@@ -124,6 +125,9 @@ function onKeyDown (e) {
         players[clientId].bullets.push(bullet)
         canvas.add(bullet.gameObj)
     }
+
+    if(!(code > 36 && code < 41))
+        return
 
     e.preventDefault()
     pressed[code] = true
