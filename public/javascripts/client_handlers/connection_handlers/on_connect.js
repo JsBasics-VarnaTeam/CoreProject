@@ -1,7 +1,7 @@
 /**
  * Created by Krasimir on 10/2/2016.
  */
-let client = io({transports: ['websocket'], upgrade: false})
+const client = io({transports: ['websocket'], upgrade: false})
 let players = {}
 // holds client id received from server
 let clientId
@@ -10,6 +10,7 @@ let lat = []
 let avglat
 let serverTimeOffset = 0
 let map = []
+let focus = true
 
 function avg(arr) {
   return arr.reduce((a, b) => { return a + b}) / arr.length
@@ -32,14 +33,17 @@ client.on('connect', () => {
 
 // keeps track of client latency every 500 ms
 setInterval(() => {
-  client.emit('latency', new Date().getTime(), (startTime) => {
-        // averages the latency
-    lat.push((new Date().getTime() - startTime))
+    if(!focus) return
+
+    client.emit('latency', new Date().getTime(), (startTime) => {
+
+    lat.push(new Date().getTime() - startTime)
 
     if(lat.length > 50) {
       lat.shift()
     }
 
+    // averages the latency
     avglat = avg(lat)
   })
 }, 1000)
@@ -54,15 +58,20 @@ client.on('time', (data) => {
   // console.log('time offset: ' + serverTimeOffset)
 })
 
-window.onbeforeunload = function (e) {
-  client.disconnect()
+window.onbeforeunload = (e) => {
+    client.disconnect()
 }
+
+window.addEventListener("focus", (e) => {
+    focus = true
+})
+
+window.addEventListener("blur", (e) => {
+    focus = false
+})
 
 setInterval(() => {
   console.log('lat: ' + avglat)
   console.log('serverTimeOffset: ' + serverTimeOffset)
 }, 5000)
-
-// setInterval(() => {
-// }, 5000)
 
