@@ -15,11 +15,11 @@ setTimeout(() => {
         // takes into consideration the difference in clocks between server computer and client computer
         // (serverTimeOffset)
         let timeDiff = new Date().getTime() - (data.time + avglat - serverTimeOffset)
-        // assumes updates rate is 22 (every 45 ms)
+        // assumes updates rate is 20 (every 50 ms)
         // value must be between 0 and 1 or it will be considered
         // hyper interpolation (bad for us)
-        // let tdPercentage = timeDiff / assumedUpdateRateMs > 1 ? 1 : timeDiff / assumedUpdateRateMs
-        //
+        let tdPercentage = timeDiff / assumedUpdateRateMs > 1 ? 1 : timeDiff / assumedUpdateRateMs
+
         // // buffer.push({data: data, tdP: tdPercentage})
         let moves = timeDiff / assumedUpdateRateMs
         moves = moves < 1 ? 1 : moves
@@ -32,21 +32,18 @@ setTimeout(() => {
         // data = data.data
         let id
         for(id in data.activePlayers) {
-            // if(isNaN(players[id].x) || isNaN(players[id].y) || isNaN(players[id].rotation)) {
-            //     console.log('NAN')
-            //     players[id].x = data.activePlayers[id].x
-            //     players[id].y = data.activePlayers[id].y
-            //     players[id].rotation = data.activePlayers[id].rotation
-            // } else {
+            if(isNaN(players[id].x) || isNaN(players[id].y) || isNaN(players[id].rotation)) {
+                console.log('NAN')
+                players[id].x = data.activePlayers[id].x
+                players[id].y = data.activePlayers[id].y
+                players[id].rotation = data.activePlayers[id].rotation
+            } else {
                 // position and rotation interpolation (frame of 45 ms)
                 // less 'teleporting'
-            players[id].x = data.activePlayers[id].x
-            players[id].y = data.activePlayers[id].y
-            players[id].rotation = data.activePlayers[id].rotation
-                // - Math.cos(Math.getAngleInRadians(data.activePlayers[id].rotation)) * speed
-                // - Math.sin(Math.getAngleInRadians(data.activePlayers[id].rotation)) * speed
-                // players[id].rotation + tdPercentage * (data.activePlayers[id].rotation - players[id].rotation)
-            // }
+                players[id].x = players[id].x + tdPercentage * (data.activePlayers[id].x - players[id].x)
+                players[id].y = players[id].y + tdPercentage * (data.activePlayers[id].y - players[id].y)
+                players[id].rotation = players[id].rotation + tdPercentage * (data.activePlayers[id].rotation - players[id].rotation)
+            }
 
             players[id]
                 .gameObj
