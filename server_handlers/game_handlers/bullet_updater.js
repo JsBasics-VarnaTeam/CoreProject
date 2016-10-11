@@ -10,13 +10,17 @@ module.exports = (io) => {
 
             let i = io.activePlayers[id].bullets.length
             while(i--) {
-                io.activePlayers[id].bullets[i].x -= io.activePlayers[id].bullets[i].xOffset
-                io.activePlayers[id].bullets[i].y -= io.activePlayers[id].bullets[i].yOffset
+                let bullet = io.activePlayers[id].bullets[i]
+                // for(let l of io.map) {
+                //     if(l.x1 >= )
+                // }
+                bullet.x -= bullet.xOffset
+                bullet.y -= bullet.yOffset
 
-                if(io.activePlayers[id].bullets[i].x < 0
-                    || io.activePlayers[id].bullets[i].y < 0
-                    || io.activePlayers[id].bullets[i].x > 1200
-                    || io.activePlayers[id].bullets[i].y > 600) {
+                if(bullet.x < 0
+                    || bullet.y < 0
+                    || bullet.x > 1200
+                    || bullet.y > 600) {
 
                     io.activePlayers[id].bullets.splice(i, 1)
                 }

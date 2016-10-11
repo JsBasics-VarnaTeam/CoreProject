@@ -12,8 +12,6 @@ canvasWrapper.addEventListener('keydown', onKeyDown, false)
 canvasWrapper.addEventListener('keyup', onKeyUp, false)
 canvasWrapper.style.outline = 'none'
 
-
-
 setInterval(() => {
     if (players[clientId] && Object.keys(pressed).length > 0) {
         client.emit('movement', {
@@ -22,17 +20,16 @@ setInterval(() => {
             left: pressed[37],
             right: pressed[39],
             time: new Date().getTime() - serverTimeOffset,
-            lat: avglat
-        })
+            lat: avglat})
 
         let key
         for (key in pressed) {
-            // fabric rect obj works with angles in degrees
-            let angle = players[clientId].rotation
             // x is left in fabric
             let x = players[clientId].x
             // y is top in fabric
             let y = players[clientId].y
+
+            let angle = players[clientId].rotation
             // Up key
             if (key == 38) {
                 x -= Math.cos(angleInRadians(angle)) * speed
@@ -61,7 +58,23 @@ setInterval(() => {
                 .set({'left': x,
                     'top': y,
                     'angle': angle})
+            // players[clientId].gameObj.setCoords()
+            // console.log(players[clientId].gameObj.oCoords.tl.x)
+            // collisionObject
+            //     .set({'left': x,
+            //         'top': y,
+            //         'angle': angle})
+            // collisionObject.setCoords()
+            //
+            // for(let l of map) {
+            //     if(l.intersectsWithObject(collisionObject)) {
+            //         console.log('collided')
+            //         return
+            //     }
+            // }
         }
+
+        // updatePosition(collisionObject.left, collisionObject.top, collisionObject.angle)
     }
 }, movementInterval)
 
@@ -125,5 +138,32 @@ function onKeyUp (e) {
 }
 
 function angleInRadians (angle) {
-  return angle / 180 * Math.PI
+    return angle / 180 * Math.PI
 }
+
+// function updatePosition(x, y, rotation) {
+//     console.log('moved')
+//
+//     client.emit('movement', {
+//         up: pressed[38],
+//         down: pressed[40],
+//         left: pressed[37],
+//         right: pressed[39],
+//         time: new Date().getTime() - serverTimeOffset,
+//         lat: avglat})
+//
+//     collisionObject
+//         .set({'left': x,
+//             'top': y,
+//             'angle': angle})
+//     collisionObject.setCoords()
+//
+//     for(let l of map) {
+//         if(l.intersectsWithObject(collisionObject)) {
+//             console.log('collided')
+//             return
+//         }
+//     }
+//     players[clientId].gameObj.setCoords()
+// }
+

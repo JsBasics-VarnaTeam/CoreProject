@@ -13,6 +13,13 @@ function canvasGetById (id) {
   }
 }
 
+let collisionObject = new fabric.Rect({
+  width: 60,
+  height: 40,
+  originX: 'center',
+  originY: 'center'
+})
+
 Math.getAngleInRadians = function (angle) {
   return angle / 180 * Math.PI
 }
@@ -75,5 +82,9 @@ function initialRender (canvasData, rectData) {
 }
 
 initialRender(canvasData)
+
+canvas.on('object:moving', (e) => {
+  console.log('MAMKAMO')
+})
 
 // client.emit('ready', {x: rect.getLeft(), y: rect.getTop(), rotation: rect.getAngle()})

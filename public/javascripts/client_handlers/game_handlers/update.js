@@ -17,7 +17,7 @@ client.on('update', (data) => {
     // assumes updates rate is 20 (every 50 ms)
     // value must be between 0 and 1 or it will be considered
     // hyper interpolation (bad for us)
-    let tdPercentage = timeDiff / assumedUpdateRateMs > 1 ? 1 : timeDiff / assumedUpdateRateMs
+    // let tdPercentage = timeDiff / assumedUpdateRateMs > 1 ? 1 : timeDiff / assumedUpdateRateMs
 
     // // buffer.push({data: data, tdP: tdPercentage})
     let moves = timeDiff / assumedUpdateRateMs
@@ -32,18 +32,20 @@ client.on('update', (data) => {
     let id
     for(id in data.activePlayers) {
         setTimeout((id, data, tdPercentage) => {
-            if(isNaN(players[id].x) || isNaN(players[id].y) || isNaN(players[id].rotation)) {
-                console.log('NAN MADAFAKA')
+            // if(isNaN(players[id].x) || isNaN(players[id].y) || isNaN(players[id].rotation)) {
+            //     console.log('NAN MADAFAKA')
                 players[id].x = data.activePlayers[id].x
                 players[id].y = data.activePlayers[id].y
                 players[id].rotation = data.activePlayers[id].rotation
-            } else {
-                // position and rotation interpolation (frame of 50 ms)
-                // less 'teleporting'
-                players[id].x = players[id].x + tdPercentage * (data.activePlayers[id].x - players[id].x)
-                players[id].y = players[id].y + tdPercentage * (data.activePlayers[id].y - players[id].y)
-                players[id].rotation = players[id].rotation + tdPercentage * (data.activePlayers[id].rotation - players[id].rotation)
-            }
+            // } else {
+            //     // position and rotation interpolation (frame of 50 ms)
+            //     // less 'teleporting'
+            //     players[id].x = players[id].x + tdPercentage * (data.activePlayers[id].x - players[id].x)
+            //     players[id].y = players[id].y + tdPercentage * (data.activePlayers[id].y - players[id].y)
+            //     players[id].rotation = players[id].rotation + tdPercentage * (data.activePlayers[id].rotation - players[id].rotation)
+            // }
+
+            // collisionObject[data.activePlayers[id].x]
 
             players[id]
                 .gameObj

@@ -36,7 +36,7 @@ client.on('init-data', (data) => {
 
     let imgElement = document.getElementById('my-image')
     let gameObj = new fabric.Image(imgElement, newPlayerRectData)
-
+    console.log(gameObj)
     players[id] = {
         username: data.activePlayers[id].username,
         bullets: bullets,
@@ -47,6 +47,7 @@ client.on('init-data', (data) => {
     }
 
     canvas.add(players[id].gameObj)
+    console.log(gameObj.oCoords.tl)
   }
 
   canvas.renderAll()
