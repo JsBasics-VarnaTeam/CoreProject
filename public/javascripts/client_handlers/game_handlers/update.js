@@ -31,7 +31,7 @@ client.on('update', (data) => {
     // data = data.data
     let id
     for(id in data.activePlayers) {
-        setTimeout((id, data, tdPercentage) => {
+        setTimeout((id, data) => {
             // if(isNaN(players[id].x) || isNaN(players[id].y) || isNaN(players[id].rotation)) {
             //     console.log('NAN MADAFAKA')
                 players[id].x = data.activePlayers[id].x
@@ -54,7 +54,7 @@ client.on('update', (data) => {
                     'top': players[id].y,
                     'angle': players[id].rotation
                 })
-        }, 0, id, data, tdPercentage)
+        }, 0, id, data)
 
         setTimeout((id, bulletSpeed, data) => {
             let i = players[id].bullets.length
