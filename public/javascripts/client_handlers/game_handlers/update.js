@@ -32,6 +32,7 @@ client.on('update', (data) => {
     let id
     for(id in data.activePlayers) {
         setTimeout((id, data) => {
+            if(!players[id]) return
             // if(isNaN(players[id].x) || isNaN(players[id].y) || isNaN(players[id].rotation)) {
             //     console.log('NAN MADAFAKA')
                 players[id].x = data.activePlayers[id].x

@@ -46,7 +46,7 @@ module.exports = (io, client, data) => {
     let rbl = rotatePoint([player.x, player.y], [bl.x, bl.y], radians)
 
     let id
-    for(let id in io.activePlayers) {
+    for(id in io.activePlayers) {
         if(id === client.id) continue
         let playerf = {
             x: io.activePlayers[id].x,
@@ -69,6 +69,14 @@ module.exports = (io, client, data) => {
 
         if(doPolygonsIntersect([{x: rtl[0] ,y: rtl[1]}, {x: rtr[0], y: rtr[1]}, {x: rbr[0], y: rbr[1]}, {x: rbl[0], y: rbl[1]}],
                 [{x: rtlf[0] ,y: rtlf[1]}, {x: rtrf[0], y: rtrf[1]}, {x: rbrf[0], y: rbrf[1]}, {x: rblf[0], y: rblf[1]}])) {
+            return
+        }
+    }
+
+    let l
+    for(l of io.map) {
+        if(doPolygonsIntersect([{x: rtl[0] ,y: rtl[1]}, {x: rtr[0], y: rtr[1]}, {x: rbr[0], y: rbr[1]}, {x: rbl[0], y: rbl[1]}],
+            [{x: l.x1, y: l.y1},{x: l.x2, y: l.y2}])) {
             return
         }
     }
