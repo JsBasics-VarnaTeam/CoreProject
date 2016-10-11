@@ -14,7 +14,7 @@ setTimeout(() => {
         // time difference between server update emit and client data receive
         // takes into consideration the difference in clocks between server computer and client computer
         // (serverTimeOffset)
-        let timeDiff = new Date().getTime() - (data.time + avglat - serverTimeOffset)
+        let timeDiff = Math.abs(new Date().getTime() - (data.time + avglat / 2 + serverTimeOffset))
         // assumes updates rate is 20 (every 50 ms)
         // value must be between 0 and 1 or it will be considered
         // hyper interpolation (bad for us)

@@ -8,6 +8,9 @@ client.on('disconnected-player', (data) => {
   }
 
   if (players[data.id]) {
+    for(let bullet of players[data.id].bullets) {
+      canvas.remove(bullet.gameObj)
+    }
     delete players[data.id]
   }
 })

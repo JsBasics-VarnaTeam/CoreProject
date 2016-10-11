@@ -6,7 +6,7 @@ client.on('new-bullet', (data) => {
         return
     }
 
-    let offset = new Date().getTime() - (data.time  + avglat / 2 - serverTimeOffset)
+    let offset = new Date().getTime() - (data.time  + avglat / 2 + serverTimeOffset)
 
     let moves = offset / 30
     moves = moves < 1 ? 1 : moves
