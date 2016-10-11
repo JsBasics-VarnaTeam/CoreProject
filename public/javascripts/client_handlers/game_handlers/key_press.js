@@ -79,7 +79,8 @@ function onKeyDown (e) {
         e.preventDefault()
     }
 
-    if (code === 88 && players[clientId].bullets.length < 3) {
+    if (code === 88 && players[clientId].bullets.length < 3 && !pressed[code]) {
+        pressed[code] = true
         // x key registered
         // logic for x (#puckane maika)
         // don't return! (or you will disallow chaining movement and shooting)

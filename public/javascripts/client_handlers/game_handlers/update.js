@@ -54,31 +54,32 @@ setTimeout(() => {
                     'angle': players[id].rotation
                 })
 
-
-            let i = players[id].bullets.length
-            while(i--) {
-                canvas.remove(players[id].bullets[i].gameObj)
-            }
-
-            let bullets = []
-            for(let bullet of data.activePlayers[id].bullets) {
-                bullet.x -= bullet.xOffset * bulletSpeed
-                bullet.y -= bullet.yOffset * bulletSpeed
-
-                let bulletData = {
-                    radius: 4,
-                    fill: 'black',
-                    left: bullet.x,
-                    top: bullet.y,
-                    originX: 'center',
-                    originY: 'center'
+            setTimeout((id, bulletSpeed, data) => {
+                let i = players[id].bullets.length
+                while(i--) {
+                    canvas.remove(players[id].bullets[i].gameObj)
                 }
-                bullet.gameObj = new fabric.Circle(bulletData)
-                bullets.push(bullet)
-                canvas.add(bullet.gameObj)
-            }
 
-            players[id].bullets = bullets
+                let bullets = []
+                for(let bullet of data.activePlayers[id].bullets) {
+                    bullet.x -= bullet.xOffset * bulletSpeed
+                    bullet.y -= bullet.yOffset * bulletSpeed
+
+                    let bulletData = {
+                        radius: 4,
+                        fill: 'black',
+                        left: bullet.x,
+                        top: bullet.y,
+                        originX: 'center',
+                        originY: 'center'
+                    }
+                    bullet.gameObj = new fabric.Circle(bulletData)
+                    bullets.push(bullet)
+                    canvas.add(bullet.gameObj)
+                }
+
+                players[id].bullets = bullets
+            }, 0, id, bulletSpeed, data)
         }
         }, 0, data)
     })
