@@ -6,9 +6,9 @@ client.on('new-bullet', (data) => {
         return
     }
 
-    let offset = new Date().getTime() - (data.time  + (avglat * 1000) / 2)
+    let offset = new Date().getTime() - (data.time  + avglat / 2 - serverTimeOffset)
 
-    let moves = offset / 33
+    let moves = offset / 30
     moves = moves < 1 ? 1 : moves
     // console.log('moves: ' + moves)
     let speed = moves * 5

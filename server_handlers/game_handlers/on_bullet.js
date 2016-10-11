@@ -2,7 +2,7 @@
  * Created by Krasimir on 10/10/2016.
  */
 module.exports = (io, client, data) => {
-    let offset = new Date().getTime() - (data.time  + (data.lat * 1000) / 2)
+    let offset = new Date().getTime() - (data.time  + data.lat / 2)
 
     let moves = offset / 30
     moves = moves < 1 ? 1 : moves

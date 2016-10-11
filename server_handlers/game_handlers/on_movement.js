@@ -4,9 +4,9 @@
 module.exports = (io, client, data) => {
     client.broadcast.emit('pre-update', {id: client.id, up: data.up, down: data.down, left: data.left, right: data.right, time: new Date().getTime()})
 
-    let offset = new Date().getTime() - (data.time  + (data.lat * 1000) / 2)
+    let offset = new Date().getTime() - (data.time  + data.lat / 2)
 
-    let moves = offset / 15
+    let moves = offset / 30
     moves = moves < 1 ? 1 : moves
     // console.log('moves: ' + moves)
     let speed = 3 * moves

@@ -1,7 +1,6 @@
 /**
  * Created by Krasimir on 10/10/2016.
  */
-let cc = 0
 module.exports = (io) => {
     setInterval(() => {
         if(Object.keys(io.activePlayers).length === 0) return
@@ -23,5 +22,5 @@ module.exports = (io) => {
                 }
             }
         }
-    }, 25)
+    }, 30)
 }

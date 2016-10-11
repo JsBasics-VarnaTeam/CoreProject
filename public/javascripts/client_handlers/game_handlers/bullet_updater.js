@@ -9,6 +9,8 @@
 //
 //         let i = players[id].bullets.length
 //         while(i--) {
+//             if(!players[id].bullets[i]) continue
+//
 //             players[id].bullets[i].x -= players[id].bullets[i].xOffset
 //             players[id].bullets[i].y -= players[id].bullets[i].yOffset
 //             players[id].bullets[i].gameObj

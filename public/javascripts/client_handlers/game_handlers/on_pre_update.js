@@ -30,4 +30,4 @@ setTimeout(() => {
             players[data.id].y += Math.sin(Math.getAngleInRadians(players[data.id].rotation)) * speed
         }
     })
-}, 500)
+}, 1000)

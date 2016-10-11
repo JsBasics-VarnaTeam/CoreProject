@@ -3,6 +3,7 @@ let movementInterval = 30
 
 let speed = 3
 let turningSpeed = 3
+let bulletSpeed = 5
 
 setTimeout(() => {
 // player must click on canvas before key presses are registered
@@ -82,10 +83,10 @@ function onKeyDown (e) {
         // x key registered
         // logic for x (#puckane maika)
         // don't return! (or you will disallow chaining movement and shooting)
-        let xOffset = Math.cos(angleInRadians(players[clientId].rotation)) * 5
-        let yOffset = Math.sin(angleInRadians(players[clientId].rotation)) * 5
-        let startX = players[clientId].x - xOffset * 6
-        let startY = players[clientId].y - yOffset * 6
+        let xOffset = Math.cos(angleInRadians(players[clientId].rotation)) * bulletSpeed
+        let yOffset = Math.sin(angleInRadians(players[clientId].rotation)) * bulletSpeed
+        let startX = players[clientId].x - xOffset * bulletSpeed
+        let startY = players[clientId].y - yOffset * bulletSpeed
 
         client.emit('bullet', {
             x: startX,
