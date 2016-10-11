@@ -5,7 +5,6 @@ let speed = 3
 let turningSpeed = 3
 let bulletSpeed = 5
 
-setTimeout(() => {
 // player must click on canvas before key presses are registered
 let canvasWrapper = document.getElementById('canvas-wrapper')
 canvasWrapper.tabIndex = 1000
@@ -113,10 +112,6 @@ function onKeyDown (e) {
         canvas.add(bullet.gameObj)
     }
 
-    if (!(code > 36 && code < 41)) {
-        return
-    }
-
     e.preventDefault()
     pressed[code] = true
 }
@@ -128,8 +123,6 @@ function onKeyUp (e) {
         delete pressed[e.keyCode]
     }
 }
-
-}, 1000)
 
 function angleInRadians (angle) {
   return angle / 180 * Math.PI

@@ -47,7 +47,7 @@ setInterval(() => {
 // calculates the difference between server clock and client clock
 client.on('time', (data) => {
   if (avglat) {
-    serverTimeOffset = new Date().getTime() - (data.time + avglat)
+    serverTimeOffset = new Date().getTime() - (data.time + avglat / 2)
   } else {
     serverTimeOffset = new Date().getTime() - data.time
   }
