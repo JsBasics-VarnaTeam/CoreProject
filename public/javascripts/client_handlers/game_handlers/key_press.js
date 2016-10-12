@@ -99,8 +99,8 @@ function onKeyDown (e) {
         // don't return! (or you will disallow chaining movement and shooting)
         let xOffset = Math.cos(angleInRadians(players[clientId].rotation)) * bulletSpeed
         let yOffset = Math.sin(angleInRadians(players[clientId].rotation)) * bulletSpeed
-        let startX = players[clientId].x - xOffset * bulletSpeed
-        let startY = players[clientId].y - yOffset * bulletSpeed
+        let startX = players[clientId].x - xOffset * (bulletSpeed + 3)
+        let startY = players[clientId].y - yOffset * (bulletSpeed + 3)
 
         client.emit('bullet', {
             x: startX,
