@@ -13,7 +13,7 @@ client.on('init-data', (data) => {
     document.getElementById('results-wrapper').appendChild(para)
 
     let bullets = []
-    for(let bullet of data.activePlayers[id].bullets) {
+    for (let bullet of data.activePlayers[id].bullets) {
       let bulletData = {
         radius: 4,
         fill: 'black',
@@ -39,16 +39,21 @@ client.on('init-data', (data) => {
       originY: 'center'
     }
 
-    let imgElement = document.getElementById('my-image')
+    let imgElement
+    if (clientId === id) {
+      imgElement = document.getElementById('tank-blue')
+    } else {
+      imgElement = document.getElementById('tank-green')
+    }
     let gameObj = new fabric.Image(imgElement, newPlayerRectData)
 
     players[id] = {
-        username: data.activePlayers[id].username,
-        bullets: bullets,
-        x: data.activePlayers[id].x,
-        y: data.activePlayers[id].y,
-        rotation: data.activePlayers[id].rotation,
-        gameObj: gameObj
+      username: data.activePlayers[id].username,
+      bullets: bullets,
+      x: data.activePlayers[id].x,
+      y: data.activePlayers[id].y,
+      rotation: data.activePlayers[id].rotation,
+      gameObj: gameObj
     }
 
     canvas.add(players[id].gameObj)

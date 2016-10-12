@@ -55,7 +55,7 @@ client.on('new-player', (data) => {
     originX: 'center',
     originY: 'center' }
 
-  let imgElement = document.getElementById('my-image')
+  let imgElement = document.getElementById('tank-green')
   let newPlayerRect = new fabric.Image(imgElement, newPlayerRectData)
 
   players[data.id].gameObj = newPlayerRect
