@@ -2,7 +2,7 @@ module.exports = (io) => {
   io.map = []
   for (let row = 100; row < 600; row += 100) {
     for (let col = 100; col < 1200; col += 100) {
-      let chance = Math.floor(Math.random() * 5) + 1
+      let chance = Math.floor(Math.random() * 6) + 1
       // let chance = 4
       if (chance === 1) {
         // Vertical down

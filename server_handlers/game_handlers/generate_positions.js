@@ -39,6 +39,35 @@ module.exports = (io, id) => {
             }
         }
 
+        let idf
+        for(idf in io.activePlayers) {
+            if(idf === id) continue
+            let playerf = {
+                x: io.activePlayers[idf].x,
+                y: io.activePlayers[idf].y,
+                rotation: io.activePlayers[idf].rotation,
+            }
+
+            let tlf = {x: playerf.x - 30, y: playerf.y - 20}
+            let trf = {x: tlf.x + 60, y: tlf.y}
+            let brf = {x: tlf.x + 60, y: tlf.y + 40}
+            let blf = {x: tlf.x, y: tlf.y + 40}
+
+            let radiansf = Math.getAngleInRadians(playerf.rotation)
+
+            let rtlf = rotatePoint([playerf.x, playerf.y], [tlf.x, tlf.y], radiansf)
+            let rtrf = rotatePoint([playerf.x, playerf.y], [trf.x, trf.y], radiansf)
+            let rbrf = rotatePoint([playerf.x, playerf.y], [brf.x, brf.y], radiansf)
+            let rblf = rotatePoint([playerf.x, playerf.y], [blf.x, blf.y], radiansf)
+
+
+            if(doPolygonsIntersect([{x: rtl[0] ,y: rtl[1]}, {x: rtr[0], y: rtr[1]}, {x: rbr[0], y: rbr[1]}, {x: rbl[0], y: rbl[1]}],
+                    [{x: rtlf[0] ,y: rtlf[1]}, {x: rtrf[0], y: rtrf[1]}, {x: rbrf[0], y: rbrf[1]}, {x: rblf[0], y: rblf[1]}])) {
+                collides = true
+                break
+            }
+        }
+
         if(!collides) {
             io.activePlayers[id].x = player.x
             io.activePlayers[id].y = player.y
