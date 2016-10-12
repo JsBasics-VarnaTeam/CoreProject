@@ -31,9 +31,8 @@ client.on('new-player', (data) => {
           originX: 'center',
           originY: 'center'
       }
-      let bulletCircle = new fabric.Circle(bulletData)
 
-      bullet.gameObj = bulletCircle
+      bullet.gameObj = new fabric.Circle(bulletData)
       bullets.push(bullet)
       canvas.add(bullet.gameObj)
   }

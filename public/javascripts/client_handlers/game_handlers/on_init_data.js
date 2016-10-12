@@ -41,6 +41,7 @@ client.on('init-data', (data) => {
 
     let imgElement = document.getElementById('my-image')
     let gameObj = new fabric.Image(imgElement, newPlayerRectData)
+
     players[id] = {
         username: data.activePlayers[id].username,
         bullets: bullets,
