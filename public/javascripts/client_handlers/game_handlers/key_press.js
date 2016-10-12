@@ -5,7 +5,6 @@ let speed = 3
 let turningSpeed = 3
 let bulletSpeed = 5
 
-// player must click on canvas before key presses are registered
 let canvasWrapper = document.getElementById('canvas-wrapper')
 canvasWrapper.tabIndex = 1000
 canvasWrapper.addEventListener('keydown', onKeyDown, false)
@@ -58,23 +57,7 @@ setInterval(() => {
                 .set({'left': x,
                     'top': y,
                     'angle': angle})
-            // players[clientId].gameObj.setCoords()
-            // console.log(players[clientId].gameObj.oCoords.tl.x)
-            // collisionObject
-            //     .set({'left': x,
-            //         'top': y,
-            //         'angle': angle})
-            // collisionObject.setCoords()
-            //
-            // for(let l of map) {
-            //     if(l.intersectsWithObject(collisionObject)) {
-            //         console.log('collided')
-            //         return
-            //     }
-            // }
         }
-
-        // updatePosition(collisionObject.left, collisionObject.top, collisionObject.angle)
     }
 }, movementInterval)
 
@@ -144,30 +127,3 @@ function onKeyUp (e) {
 function angleInRadians (angle) {
     return angle / 180 * Math.PI
 }
-
-// function updatePosition(x, y, rotation) {
-//     console.log('moved')
-//
-//     client.emit('movement', {
-//         up: pressed[38],
-//         down: pressed[40],
-//         left: pressed[37],
-//         right: pressed[39],
-//         time: new Date().getTime() - serverTimeOffset,
-//         lat: avglat})
-//
-//     collisionObject
-//         .set({'left': x,
-//             'top': y,
-//             'angle': angle})
-//     collisionObject.setCoords()
-//
-//     for(let l of map) {
-//         if(l.intersectsWithObject(collisionObject)) {
-//             console.log('collided')
-//             return
-//         }
-//     }
-//     players[clientId].gameObj.setCoords()
-// }
-

@@ -1,23 +1,21 @@
 extends layout
 
 block content
-    div zdr bepce (#{username})
+    h1 zdr bepce (#{username})
 
-    // make username accessible for on_connect.js (stupid jade)
+    div(id='body-wrapper')
+        img(src="/assets/tank.png", alt="", id="my-image" style="display:none")
+
+        div(id='game-wrapper')
+            div(id='results-wrapper')
+            div(id='canvas-wrapper')
+                canvas(id='canvas', width, height, tabindex="0")
+
+
+    // load the client handlers needed to establish connection
     script(type='text/javascript').
         let username = !{JSON.stringify(username)}
 
-    // load fabricjs
-    script(type='text/javascript', src="/javascripts/fabric.min.js")
-    
-    img(src="/assets/tank.png", alt="", id="my-image" style="display:none")
-
-    div(id='canvas-wrapper')
-        // draw canvas
-        canvas(id='canvas', width, height, tabindex="0")
-
-    div(id='results-wrapper')
-    // load the client handlers needed to establish connection
     script(type='text/javascript' src='/javascripts/client_handlers/connection_handlers/on_connect.js')
 
     script(type='text/javascript' src ='/javascripts/client_handlers/connection_handlers/on_accepted.js')
@@ -26,7 +24,10 @@ block content
 
     script(type='text/javascript' src ='/javascripts/client_handlers/connection_handlers/on_rejected.js')
     //load canvas
+    script(type='text/javascript', src="/javascripts/fabric.min.js")
+
     script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/canvas_init.js')
+
     // load key listener
     script(type='text/javascript' src='/javascripts/client_handlers/game_handlers/key_press.js')
     // load script that loads new players and sends their data to server to be distributed
@@ -42,7 +43,7 @@ block content
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_new_bullet.js')
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/bullet_updater.js')
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/update.js')
-    script(type='text/javascript' src='javascripts/client_handlers/game_handlers/on_death.js')
+    script(type='text/javascript' src='javascripts/client_handlers/game_handlers/on_score.js')
     script.
         document.getElementById("canvas").focus()
 

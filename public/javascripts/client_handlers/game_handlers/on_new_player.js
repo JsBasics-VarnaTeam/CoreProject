@@ -11,10 +11,10 @@ client.on('new-player', (data) => {
     return
   }
 
-  let span = document.createElement('span')
-  span.setAttribute('id', data.id)
-  span.innerHTML = data.username + ' deaths: ' + data.deaths
-  document.getElementById('results-wrapper').appendChild(span)
+  let para = document.createElement('p')
+    para.setAttribute('id', data.id)
+    para.innerText = `${data.username}: ${data.score}`
+  document.getElementById('results-wrapper').appendChild(para)
 
   let newPlayerUsername = data.username
   let posX = data.x

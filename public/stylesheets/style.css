@@ -13,11 +13,49 @@ a {
   border: 5px solid black;
 }
 
-span {
-  margin-left: 30px;
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+#game-wrapper {
+  width: 99%;
+  height: 99%;
+  margin: 0 auto;
+  display: flex;;
+}
+
+#canvas-wrapper {
+  width: 1200px;
+  height: 600px;
+}
+
+p {
   font-size: 28px;
+  white-space: nowrap;
+}
+
+form {
+  width: 200px;
+  margin: 0 auto;
+}
+
+input {
+  margin-left: 15px;
+}
+
+button {
+  margin-left: 15px;
 }
 
 #results-wrapper {
-  display: inline-block;
+  width: 250px;
+}
+
+#body-wrapper {
+  width: 100%;
+  height: 100%;
 }

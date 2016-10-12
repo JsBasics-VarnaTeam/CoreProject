@@ -1,12 +1,6 @@
 /**
  * Created by Krasimir on 10/5/2016.
  */
-// assumed emit rate from server
-let assumedUpdateRateMs = 50
-
-// frame buffer
-// let buffer = []
-
 // receives update ticks
 client.on('update', (data) => {
     setTimeout((data) => {
@@ -71,7 +65,6 @@ client.on('update', (data) => {
                 }
             } else if(i < k) {
                 while (k--) {
-                    console.log('aaa')
                     let bullet = players[id].bullets[k]
                     let bulletToAdd = data.activePlayers[id].bullets[k]
                     bulletToAdd.x -= bulletToAdd.xOffset

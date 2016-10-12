@@ -7,10 +7,10 @@
 client.on('init-data', (data) => {
   let id
   for (id in data.activePlayers) {
-    let span = document.createElement('span')
-    span.setAttribute('id', id)
-    span.innerHTML = data.activePlayers[id].username + ' deaths: ' + data.activePlayers[id].deaths
-    document.getElementById('results-wrapper').appendChild(span)
+    let para = document.createElement('p')
+    para.setAttribute('id', id)
+    para.innerText = `${data.activePlayers[id].username}: ${data.activePlayers[id].score}`
+    document.getElementById('results-wrapper').appendChild(para)
 
     let bullets = []
     for(let bullet of data.activePlayers[id].bullets) {
@@ -41,7 +41,6 @@ client.on('init-data', (data) => {
 
     let imgElement = document.getElementById('my-image')
     let gameObj = new fabric.Image(imgElement, newPlayerRectData)
-    console.log(gameObj)
     players[id] = {
         username: data.activePlayers[id].username,
         bullets: bullets,
@@ -52,7 +51,6 @@ client.on('init-data', (data) => {
     }
 
     canvas.add(players[id].gameObj)
-    console.log(gameObj.oCoords.tl)
   }
 
   canvas.renderAll()

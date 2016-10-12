@@ -30,11 +30,14 @@ module.exports = (io) => {
                 let mc = checkCollisionMap(io, bullet)
                 let pk = checkCollisionPlayers(io, bullet)
                 if(pk) {
-                    console.log(pk)
                     io.activePlayers[id].bullets.splice(i, 1)
                     require('./generate_positions')(io, pk)
-                    io.activePlayers[pk].deaths++
-                    io.emit('death', {id: pk, player: io.activePlayers[pk]})
+                    if(id === pk) {
+                        io.activePlayers[id].score--
+                    } else {
+                        io.activePlayers[id].score++
+                    }
+                    io.emit('score', {id: id, player: io.activePlayers[id]})
                 } else if(mc === 'v') {
                     bullet.xOffset = -bullet.xOffset
                     bullet.x -= bullet.xOffset
@@ -94,7 +97,7 @@ function checkCollisionMap(io, bullet) {
 }
 
 function interceptCircleLineSeg(circle, line){
-    var a, b, c, d, u1, u2, v1, v2;
+    let a, b, c, d, u1, u2, v1, v2;
     v1 = {};
     v2 = {};
     v1.x = line.x2 - line.x1;
@@ -120,21 +123,21 @@ function interceptCircleLineSeg(circle, line){
 }
 
 function collideCircleWithRotatedRectangle (circle, rect) {
-    var rectCenterX = rect.x;
-    var rectCenterY = rect.y;
+    let rectCenterX = rect.x;
+    let rectCenterY = rect.y;
 
-    var rectX = rectCenterX - 25;
-    var rectY = rectCenterY - 15;
+    let rectX = rectCenterX - 25;
+    let rectY = rectCenterY - 15;
 
-    var rectReferenceX = rectX;
-    var rectReferenceY = rectY;
+    let rectReferenceX = rectX;
+    let rectReferenceY = rectY;
 
     // Rotate circle's center point back
-    var unrotatedCircleX = Math.cos( rect.rotation ) * ( circle.x - rectCenterX ) - Math.sin( rect.rotation ) * ( circle.y - rectCenterY ) + rectCenterX;
-    var unrotatedCircleY = Math.sin( rect.rotation ) * ( circle.x - rectCenterX ) + Math.cos( rect.rotation ) * ( circle.y - rectCenterY ) + rectCenterY;
+    let unrotatedCircleX = Math.cos( rect.rotation ) * ( circle.x - rectCenterX ) - Math.sin( rect.rotation ) * ( circle.y - rectCenterY ) + rectCenterX;
+    let unrotatedCircleY = Math.sin( rect.rotation ) * ( circle.x - rectCenterX ) + Math.cos( rect.rotation ) * ( circle.y - rectCenterY ) + rectCenterY;
 
     // Closest point in the rectangle to the center of circle rotated backwards(unrotated)
-    var closestX, closestY;
+    let closestX, closestY;
 
     // Find the unrotated closest x point from center of unrotated circle
     if ( unrotatedCircleX < rectReferenceX ) {
@@ -155,13 +158,13 @@ function collideCircleWithRotatedRectangle (circle, rect) {
     }
 
     // Determine collision
-    var distance = getDistance( unrotatedCircleX, unrotatedCircleY, closestX, closestY );
+    let distance = getDistance( unrotatedCircleX, unrotatedCircleY, closestX, closestY );
     return distance < 4;
 }
 
 function getDistance( fromX, fromY, toX, toY ) {
-    var dX = Math.abs( fromX - toX );
-    var dY = Math.abs( fromY - toY );
+    let dX = Math.abs( fromX - toX );
+    let dY = Math.abs( fromY - toY );
 
     return Math.sqrt( ( dX * dX ) + ( dY * dY ) );
 }

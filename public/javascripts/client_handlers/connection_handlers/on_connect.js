@@ -31,7 +31,7 @@ client.on('connect', () => {
   })
 })
 
-// keeps track of client latency every 500 ms
+// keeps track of client latency every 1000 ms
 setInterval(() => {
     if(!focus) return
 
@@ -55,7 +55,6 @@ client.on('time', (data) => {
   } else {
     serverTimeOffset = new Date().getTime() - data.time
   }
-  // console.log('time offset: ' + serverTimeOffset)
 })
 
 window.onbeforeunload = (e) => {

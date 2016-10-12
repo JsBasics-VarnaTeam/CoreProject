@@ -11,6 +11,6 @@ module.exports = (io, client) => {
     y: newPlayer.y,
     rotation: newPlayer.rotation,
     bullets: newPlayer.bullets,
-    deaths: newPlayer.deaths
+    score: newPlayer.score
   })
 }

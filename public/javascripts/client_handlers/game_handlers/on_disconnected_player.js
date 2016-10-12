@@ -8,7 +8,7 @@ client.on('disconnected-player', (data) => {
   }
 
   if(document.getElementById(data.id)) {
-    document.body.removeChild(document.getElementById(data.id))
+    document.getElementById('results-wrapper').removeChild(document.getElementById(data.id))
   }
 
   if (players[data.id]) {

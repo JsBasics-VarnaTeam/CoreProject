@@ -39,6 +39,35 @@ module.exports = (io, id) => {
             }
         }
 
+        let idf
+        for(idf in io.activePlayers) {
+            if(idf === id) continue
+            let playerf = {
+                x: io.activePlayers[idf].x,
+                y: io.activePlayers[idf].y,
+                rotation: io.activePlayers[idf].rotation,
+            }
+
+            let tlf = {x: playerf.x - 30, y: playerf.y - 20}
+            let trf = {x: tlf.x + 60, y: tlf.y}
+            let brf = {x: tlf.x + 60, y: tlf.y + 40}
+            let blf = {x: tlf.x, y: tlf.y + 40}
+
+            let radiansf = Math.getAngleInRadians(playerf.rotation)
+
+            let rtlf = rotatePoint([playerf.x, playerf.y], [tlf.x, tlf.y], radiansf)
+            let rtrf = rotatePoint([playerf.x, playerf.y], [trf.x, trf.y], radiansf)
+            let rbrf = rotatePoint([playerf.x, playerf.y], [brf.x, brf.y], radiansf)
+            let rblf = rotatePoint([playerf.x, playerf.y], [blf.x, blf.y], radiansf)
+
+
+            if(doPolygonsIntersect([{x: rtl[0] ,y: rtl[1]}, {x: rtr[0], y: rtr[1]}, {x: rbr[0], y: rbr[1]}, {x: rbl[0], y: rbl[1]}],
+                    [{x: rtlf[0] ,y: rtlf[1]}, {x: rtrf[0], y: rtrf[1]}, {x: rbrf[0], y: rbrf[1]}, {x: rblf[0], y: rblf[1]}])) {
+                collides = true
+                break
+            }
+        }
+
         if(!collides) {
             io.activePlayers[id].x = player.x
             io.activePlayers[id].y = player.y
@@ -60,24 +89,24 @@ function rotatePoint(pivot, point, angle) {
 }
 
 function doPolygonsIntersect (a, b) {
-    var polygons = [a, b];
+    let polygons = [a, b];
     // console.log(polygons)
-    var minA, maxA, projected, i, i1, j, minB, maxB;
+    let minA, maxA, projected, i, i1, j, minB, maxB;
 
     for (i = 0; i < polygons.length; i++) {
         // for each polygon, look at each edge of the polygon, and determine if it separates
         // the two shapes
         // console.log(polygons)
-        var polygon = polygons[i];
+        let polygon = polygons[i];
         for (i1 = 0; i1 < polygon.length; i1++) {
 
             // grab 2 vertices to create an edge
-            var i2 = (i1 + 1) % polygon.length;
-            var p1 = polygon[i1];
-            var p2 = polygon[i2];
+            let i2 = (i1 + 1) % polygon.length;
+            let p1 = polygon[i1];
+            let p2 = polygon[i2];
 
             // find the line perpendicular to this edge
-            var normal = { x: p2.y - p1.y, y: p1.x - p2.x };
+            let normal = { x: p2.y - p1.y, y: p1.x - p2.x };
 
             minA = maxA = undefined;
             // for each vertex in the first shape, project it onto the line perpendicular to the edge
