@@ -17,6 +17,10 @@ h1 {
   text-align: center;
 }
 
+h3 {
+  text-align: center;
+}
+
 #game-wrapper {
   width: 99%;
   height: 99%;
@@ -31,6 +35,20 @@ h1 {
 
 p {
   font-size: 28px;
+  white-space: nowrap;
+}
+
+form {
+  width: 200px;
+  margin: 0 auto;
+}
+
+input {
+  margin-left: 15px;
+}
+
+button {
+  margin-left: 15px;
 }
 
 #results-wrapper {

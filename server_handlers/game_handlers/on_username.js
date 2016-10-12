@@ -8,6 +8,11 @@ module.exports = (io, client, username) => {
     return false
   }
 
+  if(username.length > 12) {
+    io.to(client.id).emit('rejected', 'Your username was too long! Go back and make it shorter (max 12 chars)')
+    return false
+  }
+
   io.activePlayers[client.id] = {
     username: username,
     bullets: [],
