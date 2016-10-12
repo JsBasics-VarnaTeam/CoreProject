@@ -33,28 +33,75 @@ client.on('update', (data) => {
             if(!players[id]) return
 
             let i = players[id].bullets.length
-            while (i--) {
-                canvas.remove(players[id].bullets[i].gameObj)
-            }
+            let k = data.activePlayers[id].bullets.length
 
-            let bullets = []
-            for(let bullet of data.activePlayers[id].bullets) {
-                bullet.x -= bullet.xOffset
-                bullet.y -= bullet.yOffset
-                let bulletData = {
-                    radius: 4,
-                    fill: 'black',
-                    left: bullet.x,
-                    top: bullet.y,
-                    originX: 'center',
-                    originY: 'center'
+            if(i > k) {
+                while (i--) {
+                    let bullet = data.activePlayers[id].bullets[i]
+                    if (!bullet) {
+                        canvas.remove(players[id].bullets[i].gameObj)
+                        players[id].bullets.splice(i, 1)
+                        continue
+                    }
+                    bullet.x -= bullet.xOffset
+                    bullet.y -= bullet.yOffset
+                    players[id].bullets[i].x = bullet.x
+                    players[id].bullets[i].y = bullet.y
+                    players[id].bullets[i]
+                        .gameObj
+                        .set({
+                            'left': bullet.x,
+                            'top': bullet.y
+                        })
                 }
-                bullet.gameObj = new fabric.Circle(bulletData)
-                bullets.push(bullet)
-                canvas.add(bullet.gameObj)
-            }
+            } else if(i === k) {
+                while (i--) {
+                    let bullet = data.activePlayers[id].bullets[i]
+                    bullet.x -= bullet.xOffset
+                    bullet.y -= bullet.yOffset
 
-            players[id].bullets = bullets
+                    players[id].bullets[i].x = bullet.x
+                    players[id].bullets[i].y = bullet.y
+                    players[id].bullets[i]
+                        .gameObj
+                        .set({
+                            'left': bullet.x,
+                            'top': bullet.y
+                        })
+                }
+            } else if(i < k) {
+                while (k--) {
+                    console.log('aaa')
+                    let bullet = players[id].bullets[k]
+                    let bulletToAdd = data.activePlayers[id].bullets[k]
+                    bulletToAdd.x -= bulletToAdd.xOffset
+                    bulletToAdd.y -= bulletToAdd.yOffset
+                    if(!bullet) {
+                        let bulletData = {
+                            radius: 4,
+                            fill: 'black',
+                            left: bulletToAdd.x,
+                            top: bulletToAdd.y,
+                            originX: 'center',
+                            originY: 'center'
+                        }
+
+                        bulletToAdd.gameObj = new fabric.Circle(bulletData)
+                        players[id].bullets[k] = bulletToAdd
+                        canvas.add(bulletToAdd.gameObj)
+                        continue
+                    }
+
+                    players[id].bullets[k].x = bulletToAdd.x
+                    players[id].bullets[k].y = bulletToAdd.y
+                    players[id].bullets[k]
+                        .gameObj
+                        .set({
+                            'left': bulletToAdd.x,
+                            'top': bulletToAdd.y
+                        })
+                }
+            }
         }, 0, id, data)
     }
     }, 0, data)

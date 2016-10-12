@@ -10,6 +10,7 @@ module.exports = (io, client) => {
     x: newPlayer.x,
     y: newPlayer.y,
     rotation: newPlayer.rotation,
-    bullets: newPlayer.bullets
+    bullets: newPlayer.bullets,
+    deaths: newPlayer.deaths
   })
 }

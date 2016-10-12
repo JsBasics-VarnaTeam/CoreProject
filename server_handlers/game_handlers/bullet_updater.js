@@ -28,9 +28,13 @@ module.exports = (io) => {
                 }
 
                 let mc = checkCollisionMap(io, bullet)
-
-                if(checkCollisionPlayers(io, bullet)) {
+                let pk = checkCollisionPlayers(io, bullet)
+                if(pk) {
+                    console.log(pk)
                     io.activePlayers[id].bullets.splice(i, 1)
+                    require('./generate_positions')(io, pk)
+                    io.activePlayers[pk].deaths++
+                    io.emit('death', {id: pk, player: io.activePlayers[pk]})
                 } else if(mc === 'v') {
                     bullet.xOffset = -bullet.xOffset
                     bullet.x -= bullet.xOffset
@@ -57,7 +61,7 @@ function checkCollisionPlayers(io, bullet) {
         let rect = {x: player.x, y: player.y, rotation: radians}
 
         if(collideCircleWithRotatedRectangle(bullet, rect)) {
-            return true
+            return id
         }
     }
 

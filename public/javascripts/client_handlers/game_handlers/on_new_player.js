@@ -11,6 +11,11 @@ client.on('new-player', (data) => {
     return
   }
 
+  let span = document.createElement('span')
+  span.setAttribute('id', data.id)
+  span.innerHTML = data.username + ' deaths: ' + data.deaths
+  document.getElementById('results-wrapper').appendChild(span)
+
   let newPlayerUsername = data.username
   let posX = data.x
   let posY = data.y

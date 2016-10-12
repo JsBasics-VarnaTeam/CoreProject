@@ -1,7 +1,7 @@
 /**
  * Created by Krasimir on 10/12/2016.
  */
-module.exports = (io, client) => {
+module.exports = (io, id) => {
     while(true) {
         let collides = false
 
@@ -40,10 +40,9 @@ module.exports = (io, client) => {
         }
 
         if(!collides) {
-            io.activePlayers[client.id].x = player.x
-            io.activePlayers[client.id].y = player.y
-            io.activePlayers[client.id].rotation = player.rotation
-            io.activePlayers[client.id].bullets = []
+            io.activePlayers[id].x = player.x
+            io.activePlayers[id].y = player.y
+            io.activePlayers[id].rotation = player.rotation
             break
         }
     }

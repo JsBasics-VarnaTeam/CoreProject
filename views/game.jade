@@ -16,6 +16,7 @@ block content
         // draw canvas
         canvas(id='canvas', width, height, tabindex="0")
 
+    div(id='results-wrapper')
     // load the client handlers needed to establish connection
     script(type='text/javascript' src='/javascripts/client_handlers/connection_handlers/on_connect.js')
 
@@ -41,7 +42,7 @@ block content
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/on_new_bullet.js')
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/bullet_updater.js')
     script(type='text/javascript' src ='/javascripts/client_handlers/game_handlers/update.js')
-
+    script(type='text/javascript' src='javascripts/client_handlers/game_handlers/on_death.js')
     script.
         document.getElementById("canvas").focus()
 

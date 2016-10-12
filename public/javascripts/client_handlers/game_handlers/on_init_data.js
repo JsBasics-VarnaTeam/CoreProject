@@ -7,6 +7,11 @@
 client.on('init-data', (data) => {
   let id
   for (id in data.activePlayers) {
+    let span = document.createElement('span')
+    span.setAttribute('id', id)
+    span.innerHTML = data.activePlayers[id].username + ' deaths: ' + data.activePlayers[id].deaths
+    document.getElementById('results-wrapper').appendChild(span)
+
     let bullets = []
     for(let bullet of data.activePlayers[id].bullets) {
       let bulletData = {

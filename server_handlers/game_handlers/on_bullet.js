@@ -1,7 +1,7 @@
 /**
  * Created by Krasimir on 10/10/2016.
  */
-let defBulletLife = 12000
+let defBulletLife = 8000
 
 module.exports = (io, client, data) => {
     if(io.activePlayers[client.id].bullets.length > 3) return

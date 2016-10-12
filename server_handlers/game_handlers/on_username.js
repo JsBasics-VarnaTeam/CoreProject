@@ -9,10 +9,12 @@ module.exports = (io, client, username) => {
   }
 
   io.activePlayers[client.id] = {
-    username: username
+    username: username,
+    bullets: [],
+    deaths: 0
   }
 
-  require('../game_handlers/generate_positions')(io, client)
+  require('../game_handlers/generate_positions')(io, client.id)
 
   io.to(client.id).emit('accepted')
 

@@ -12,3 +12,12 @@ a {
 #canvas {
   border: 5px solid black;
 }
+
+span {
+  margin-left: 30px;
+  font-size: 28px;
+}
+
+#results-wrapper {
+  display: inline-block;
+}

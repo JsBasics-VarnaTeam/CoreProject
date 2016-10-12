@@ -7,6 +7,10 @@ client.on('disconnected-player', (data) => {
     canvas.remove(cObj)
   }
 
+  if(document.getElementById(data.id)) {
+    document.body.removeChild(document.getElementById(data.id))
+  }
+
   if (players[data.id]) {
     for(let bullet of players[data.id].bullets) {
       canvas.remove(bullet.gameObj)
