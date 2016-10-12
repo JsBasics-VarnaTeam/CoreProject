@@ -11,7 +11,7 @@ module.exports = (io, client, username) => {
   io.activePlayers[client.id] = {
     username: username,
     bullets: [],
-    deaths: 0
+    score: 0
   }
 
   require('../game_handlers/generate_positions')(io, client.id)

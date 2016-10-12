@@ -30,11 +30,14 @@ module.exports = (io) => {
                 let mc = checkCollisionMap(io, bullet)
                 let pk = checkCollisionPlayers(io, bullet)
                 if(pk) {
-                    console.log(pk)
                     io.activePlayers[id].bullets.splice(i, 1)
                     require('./generate_positions')(io, pk)
-                    io.activePlayers[pk].deaths++
-                    io.emit('death', {id: pk, player: io.activePlayers[pk]})
+                    if(id === pk) {
+                        io.activePlayers[id].score--
+                    } else {
+                        io.activePlayers[id].score++
+                    }
+                    io.emit('score', {id: id, player: io.activePlayers[id]})
                 } else if(mc === 'v') {
                     bullet.xOffset = -bullet.xOffset
                     bullet.x -= bullet.xOffset

@@ -13,7 +13,7 @@ client.on('new-player', (data) => {
 
   let para = document.createElement('p')
     para.setAttribute('id', data.id)
-    para.innerHTML = data.username + ' deaths: ' + data.deaths
+    para.innerText = data.username + ': ' + data.score
   document.getElementById('results-wrapper').appendChild(para)
 
   let newPlayerUsername = data.username

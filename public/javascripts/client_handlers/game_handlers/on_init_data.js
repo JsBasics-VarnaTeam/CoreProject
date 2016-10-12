@@ -9,7 +9,7 @@ client.on('init-data', (data) => {
   for (id in data.activePlayers) {
     let para = document.createElement('p')
     para.setAttribute('id', id)
-    para.innerHTML = data.activePlayers[id].username + ' deaths: ' + data.activePlayers[id].deaths
+    para.innerText = data.activePlayers[id].username + ': ' + data.activePlayers[id].score
     document.getElementById('results-wrapper').appendChild(para)
 
     let bullets = []
