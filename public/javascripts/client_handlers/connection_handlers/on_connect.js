@@ -1,7 +1,7 @@
 /**
  * Created by Krasimir on 10/2/2016.
  */
-const client = io({transports: ['websocket'], upgrade: false})
+const client = io({transports: ['websocket'], upgrade: false, reconnection: false})
 let players = {}
 // holds client id received from server
 let clientId
