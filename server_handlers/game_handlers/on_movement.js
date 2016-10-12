@@ -10,6 +10,8 @@ module.exports = (io, client, data) => {
     moves = moves < 1 ? 1 : moves
     let speed = 3
 
+    moves = moves > 5 ? 5: moves
+
     let i
     for(i = 0; i < moves; i++) {
         let player = {
